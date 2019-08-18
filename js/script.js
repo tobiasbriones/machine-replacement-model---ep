@@ -72,10 +72,9 @@ const getInputValueAt = (x, y) => {
 }
 
 const generateDataTable = (data) => {
-    const setValueAt = (x, y, value) => {
-        
-    }
+    const maxAge = parseInt(document.getElementById('timeInput').value);
     for(let t = 0; t < data.length; t++) {
+        if(t > maxAge) break;
         const row = data[t];
         document.getElementById(`input_${0},${t}`).value = row.income;
         document.getElementById(`input_${1},${t}`).value = row.operationCost;
@@ -83,55 +82,21 @@ const generateDataTable = (data) => {
     }
 }
 
-// Solver
-const generateSolutionStage = (stageNumber) => {
-    var html = '';
-    
-    html += `<table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">
-                            
-                        </th>
-                        <th scope="col">
-                            K
-                        </th>
-                        <th scope="col">
-                            R
-                        </th>
-                        <th scope="col">
-                            Optimal solution
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>`;
-    for(let y = 0; y <= t; y++) {
-        html += `<tr>
-                    <th scope="row">${y}</th>`;
-        for(let x = 0; x < 3; x++) {
-            const id = `input_${x},${y}`;
-            html += `<td>
-                        <div class="form-group">
-                            <input value="0" type="number" class="form-control" id="${id}">
-                        </div>
-                    </td>`;
-        }
-        html += `</tr>`;
-    }
-    html += `</tbody>
-            </table>`;
-    document.getElementById('solutionPanel').innerHTML = html;
-}
-
 // Evenets
 const onYearsInput = () => {
     const nInput = document.getElementById('yearsInput').value;
     const tInput = document.getElementById('timeInput').value;
+    const initialAgeInput = document.getElementById('initialAgeInput').value;
     const n = parseInt(nInput);
     const t = parseInt(tInput);
+    const initialAge = parseInt(initialAgeInput);
     
     if(isNaN(n) || isNaN(t)) {
         alert("Invalid number");
+        return;
+    }
+    if(initialAge > t) {
+        alert("Invalid initial age");
         return;
     }
     generateInputTable(n, t);
@@ -145,6 +110,15 @@ const onYearsInput = () => {
             sellingRevenue: sellingRevenue
         };
     }
+    // const data1 = [
+    //     newRow(21000, 210, -1),
+    //     newRow(19500, 600, 60000),
+    //     newRow(18500, 1300, 45000),
+    //     newRow(17200, 1500, 42000),
+    //     newRow(15500, 1750, 26000),
+    //     newRow(14500, 1900, 10000),
+    //     newRow(11200, 2100, 5000),
+    // ];
     const data = [
         newRow(20000, 200, -1),
         newRow(19000, 600, 80000),
@@ -273,7 +247,6 @@ const onSolve = () => {
         }
         document.getElementsByClassName('stages')[0].innerHTML = html;
     }
-    
     const generateResult = (stages, initialAge) => {
         const getRow = (i, t) => stages[i].find(stage => stage.t == t);
         const chains = [];
@@ -334,21 +307,30 @@ const onSolve = () => {
         getChainsHTML(chains, '', null);
         var html = '';
         
-        chainsHTML.pop(); // Don't need the last
+        //chainsHTML.pop(); // Don't need the last
         chainsHTML.forEach(chain => html += chain);
-        
         document.querySelector('.chains-container').innerHTML = html;
     }
     if(isNaN(decisionYears) || isNaN(initialAge) || isNaN(maxAge) || isNaN(machinePrice)) {
         alert('Values are integer numbers');
         return;
     }
-    solver.solve(decisionYears, initialAge, maxAge, machinePrice, getData());
+    const data = getData();
+    
+    /*console.log(`Solving problem
+                decision years: ${decisionYears}
+                initial age: ${initialAge},
+                maximum age: ${maxAge},
+                machine price: ${machinePrice},
+                data: \n${JSON.stringify(data)}`);*/
+    solver.solve(decisionYears, initialAge, maxAge, machinePrice, data);
     
     // UI
     const tree = solver.solutionsTree();
     const stages = solver.stages();
     
+    /*console.log(`Solutions tree \n${JSON.stringify(tree)}`);
+    console.log(`Stages \n${JSON.stringify(stages)}`);*/
     generateSolutionsTree(tree);
     generateSolutionsStages(stages);
     generateResult(stages, initialAge);

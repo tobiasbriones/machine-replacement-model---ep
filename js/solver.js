@@ -92,11 +92,12 @@ function Solver() {
         const lastStage = nextStage == null;
         const getNextStageMaxByAge = age => nextStage.find(row => row.t == age).max;
         const getK = t => {
+            if(t == maxMachineAge) return -1;
             if(lastStage) {
-                return (t < maxMachineAge) ? data[t].income + data[t + 1].sellingRevenue - data[t].operationCost : -1;
+                return data[t].income + data[t + 1].sellingRevenue - data[t].operationCost;
             }
             const nextMax = getNextStageMaxByAge(t + 1);
-            return (t < maxMachineAge) ? data[t].income - data[t].operationCost + nextMax : -1;
+            return data[t].income - data[t].operationCost + nextMax;
         }
         const getR = t => {
             if(lastStage) {
@@ -104,6 +105,13 @@ function Solver() {
             }
             const nextMax = getNextStageMaxByAge(1);
             return data[0].income + data[t].sellingRevenue - data[0].operationCost - newMachinePrice + nextMax;
+        }
+        const getDecision = (k, r) => {
+            // If k = -1 then the machine is old to replace
+            if(k == -1) {
+                return 'R';
+            }
+            return (r < k) ? 'K' : ((k < r) ? 'R' : 'K or R');
         }
         /*console.log('Solving stage ' + i)
         console.log(values)
@@ -114,7 +122,7 @@ function Solver() {
             const k = getK(t);
             const r = getR(t);
             const max = Math.max(k, r);
-            const decision = (r < k) ? 'K' : ((k < r) ? 'R' : 'K or R');
+            const decision = getDecision(k, r);
             stage[j] = {
                 t: t,
                 k: k,
