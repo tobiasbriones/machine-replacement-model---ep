@@ -1,0 +1,97 @@
+<html>
+    <head>
+        <title>Dynamic programming - Machine replacement model</title>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Noto+Sans+SC&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="css/styles.css">
+        <meta charset="utf-8">
+    </head>
+    
+    <body>
+        <header>
+            <nav>
+                <div>
+                    <h1>Machine replacement model</h1>
+                </div>
+            </nav>
+            <div>
+                <p>This app's model is based upon the model defined on "Investigación de operaciones" 7th edition Hamdy A. Taha
+                    chapter 10.3.3
+                </p>
+            </div>
+        </header>
+        <div class="container">
+            <div class="top-panel">
+                <div class="years-pane">
+                    <div class="form-group">
+                        <label for="yearsInput">Number of decision years</label>
+                        <input value="4" type="number" class="form-control" id="yearsInput" placeholder="Enter the number of years">
+                    </div>
+                </div>
+                <div class="max-time-pane">
+                    <div class="form-group">
+                        <label for="timeInput">Maximum machine age in years</label>
+                        <input value="6" type="number" class="form-control" id="timeInput"  placeholder="Enter the maximum age">
+                    </div>
+                </div>
+                <div class="initial-age-pane">
+                    <div class="form-group">
+                        <label for="initialAgeInput">Initial machine age in years</label>
+                        <input value="3" type="number" class="form-control" id="initialAgeInput"  placeholder="Enter the initial machine age">
+                    </div>
+                </div>
+                <div class="machine-price-pane">
+                    <div class="form-group">
+                        <label for="machinePrice">New machine's price in dollars</label>
+                        <input value="100000" type="number" class="form-control" id="machinePrice"  placeholder="Enter the price of a new machine">
+                    </div>
+                </div>
+                <div>
+                    <button id="yearsSubmitButton" class="btn btn-primary">Next</button>
+                </div>
+            </div>
+            <div id="inputTable"></div>
+            <div class="solve-button-pane">
+                <button id="solveButton" class="btn btn-primary invisible">Solve</button>
+            </div>
+            <div id="solutionPanel" class="gone">
+                <div class="divider"></div>
+                <div class="solution-title">
+                    <p>Solution</p>
+                </div>
+                <div>
+                    <p>Problem solutions tree</p>
+                    <p>Y-Axis: Machine age in years</p>
+                    <p>X-Axis: Decision year</p>
+                </div>
+                <div class="solutions-tree">
+                    <div></div>
+                </div>
+                <div class="stages"></div>
+                <div class="result">
+                    <p>Result chains</p>
+                    <div class="chains-container"></div>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <p>Operations research - Machine replacement</p>
+            <p>© 2019 Tobias Briones</p>
+            <div>
+                <div>
+                    <a class="btn btn-social-icon btn-github">
+                        <span class="fa fa-github"></span>
+                    </a>
+                    <span>
+                        <a href="https://github.com/TobiasBriones/MachineReplacementModel">GitHub</a>
+                    </span>
+                </div>
+            </div>
+        </footer>
+        <script src="js/jquery-3.4.1.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/solver.js"></script>
+        <script src="js/script.js"></script>
+    </body>
+</html>
