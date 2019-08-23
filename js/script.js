@@ -1,23 +1,28 @@
-/* This file is part of Machine replacement model.
+/*
+ * This file is part of Machine Replacement Model.
+ *
+ * Machine Replacement Model is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Machine Replacement Model is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Machine Replacement Model.  If not, see <https://www.gnu.org/licenses/>.
+ */
 
-    Machine replacement model is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    Machine replacement model is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with Foobar.  If not, see <https://www.gnu.org/licenses/>.
-*/
 /**
- * Machine replacement model https://github.com/TobiasBriones/MachineReplacementModel
- * @author Tobias Briones
- * Copyright (c) 2019 Tobias Briones
+ * This script handles the application in general.
+ * 
+ * Machine Replacement Model <https://github.com/TobiasBriones/MachineReplacementModel>
+ * Author: Tobias Briones <tobiasbrionesdev@gmail.com>
+ * Copyright (C) 2019 Tobias Briones
  **/
+
 const solver = new Solver();
 
 // Input table
