@@ -1,5 +1,5 @@
 /*
- * This file is part of Machine Replacement Model.
+ * This file is part of example.math.or.model.web.machine_replacement = Machine Replacement Model.
  *
  * Machine Replacement Model is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,14 +15,13 @@
  * along with Machine Replacement Model.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-/**
- * This script implements a solver for the model to be used in the application.
- * 
- * Machine Replacement Model <https://github.com/TobiasBriones/MachineReplacementModel>
- * Author: Tobias Briones <tobiasbrionesdev@gmail.com>
- * Copyright (C) 2019 Tobias Briones
- **/
+/*
+ * Copyright (c) 2019 Tobias Briones
+ */
 
+/**
+ * Implements a solver for the model to be used in the application.
+ */
 function Solver() {
     
     var decisionYears = -1;
