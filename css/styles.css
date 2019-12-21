@@ -63,6 +63,7 @@ header > div > p {
 }
 
 body {
+    min-width: 320px;
     background-color: #fafafa;
 }
 
