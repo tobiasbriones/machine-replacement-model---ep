@@ -9,3 +9,10 @@ Operations research model for machine maintenance/replacement. This app was a sa
 - In the result chains the last one is extra, it shouldn't appear
 
 [![Screenshot 1](https://raw.githubusercontent.com/TobiasBriones/images/master/example-projects/example.math.or.model.web.machine-replacement/screenshot-1.png)](https://github.com/TobiasBriones/images/tree/master/example-projects)
+
+## License
+Example Project - Machine Replacement Model
+
+Copyright © 2019 Tobias Briones. All rights reserved.
+
+This software is licensed under the [GNU General Public License v3.0 License](https://github.com/TobiasBriones/example.math.or.model.web.machine-replacement/blob/master/LICENSE).
