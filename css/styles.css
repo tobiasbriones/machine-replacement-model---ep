@@ -1,307 +1,303 @@
 /*
- * This file is part of example.math.or.model.web.machine_replacement = Machine Replacement Model.
+ * This file is part of example.math.or.model.web.machine-replacement = Machine Replacement Model.
+ * Copyright (C) 2019 Tobias Briones
  *
- * Machine Replacement Model is free software: you can redistribute it and/or modify
+ * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * Machine Replacement Model is distributed in the hope that it will be useful,
+ * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with Machine Replacement Model.  If not, see <https://www.gnu.org/licenses/>.
- */
-
-/*
- * Copyright (c) 2019 Tobias Briones
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 * {
-    position: relative;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Noto Sans SC', sans-serif;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Noto Sans SC', sans-serif;
 }
 
 header {
-    width: 100%;
-    height: 240px;
-    padding: 32px;
-    margin-bottom: 64px;
-    background-color: #00BCD4;
-    color: white;
+  width: 100%;
+  height: 240px;
+  padding: 32px;
+  margin-bottom: 64px;
+  background-color: #00BCD4;
+  color: white;
 }
 
 header > nav {
-    display: flex;
-    height: 72px;
+  display: flex;
+  height: 72px;
 }
 
 header > nav > div {
-    width: 100%;
-    align-self: center;
+  width: 100%;
+  align-self: center;
 }
 
 header > nav > div > h1 {
-    margin: 0px;
-    font-size: 18px;
-    font-weight: 600;
-    text-align: center;
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
 }
 
 header > div {
-    padding: 16px 32px;
+  padding: 16px 32px;
 }
 
 header > div > p {
-    font-size: 14px;
-    text-align: center;
+  font-size: 14px;
+  text-align: center;
 }
 
 body {
-    min-width: 320px;
-    background-color: #fafafa;
+  min-width: 320px;
+  background-color: #FAFAFA;
 }
 
 footer {
-    position: absolute;
-    width: 100%;
-    height: 128px;
-    bottom: -32px;
-    padding: 32px 8px;
-    background-color: #004D40;
-    border-top: 1px solid rgba(0, 0, 0, 0.2);
+  position: absolute;
+  width: 100%;
+  height: 128px;
+  bottom: -32px;
+  padding: 32px 8px;
+  background-color: #004D40;
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 footer > p {
-    font-weight: bolder;
-    font-size: 14px;
-    font-style: italic;
-    text-align: center;
-    color: #e0e0e0;
+  font-weight: bolder;
+  font-size: 14px;
+  font-style: italic;
+  text-align: center;
+  color: #E0E0E0;
 }
 
 footer > div {
-    position: absolute;
-    right: 32px;
-    bottom: 0px;
+  position: absolute;
+  right: 32px;
+  bottom: 0;
 }
 
 footer .fa {
-    font-size: 24px;
-    color: rgb(79, 185, 255);
+  font-size: 24px;
+  color: rgb(79, 185, 255);
 }
 
 footer a {
-    color: rgb(79, 185, 255);
+  color: rgb(79, 185, 255);
 }
 
 footer a:hover {
-    color: rgb(146, 211, 255);
+  color: rgb(146, 211, 255);
 }
 
 .container {
-    padding-bottom: 128px;
+  padding-bottom: 128px;
 }
 
 .gone {
-    display: none;
+  display: none;
 }
 
 .divider {
-    width: 100%;
-    height: 1px;
-    background: rgba(0, 0, 0, 0.2);
-    margin: 16px 0px;
+  width: 100%;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.2);
+  margin: 16px 0;
 }
 
 .top-panel {
-    display: block;
-    margin: auto;
-    margin-bottom: 32px;
+  display: block;
+  margin: auto auto 32px;
 }
 
 .top-panel > div {
-    display: block;
-    width: 100%;
-    padding: 8px 32px;
+  display: block;
+  width: 100%;
+  padding: 8px 32px;
 }
 
 .solve-button-pane {
-    display: flex;
-    margin-bottom: 32px;
+  display: flex;
+  margin-bottom: 32px;
 }
 
 #yearsSubmitButton {
-    width: 40%;
-    margin-bottom: 32px;
+  width: 40%;
+  margin-bottom: 32px;
 }
 
 #solveButton {
-    width: 80%;
-    margin: auto;
+  width: 80%;
+  margin: auto;
 }
 
 #solutionPanel {
-    margin: 64px 0px;
+  margin: 64px 0;
 }
 
 .solution-title > p {
-    font-weight: bold;
-    font-style: italic;
-    font-size: 18px;
-    color: #737373;
+  font-weight: bold;
+  font-style: italic;
+  font-size: 18px;
+  color: #737373;
 }
 
 .solutions-tree {
-    padding: 32px 0px;
+  padding: 32px 0;
 }
 
 .solutions-tree > div {
-    padding: 16px 48px;
-    overflow-x: auto;
-    overflow-y: hidden;
-    border-left: 1px solid #212121;
-    border-bottom: 1px solid #212121;
+  padding: 16px 48px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  border-left: 1px solid #212121;
+  border-bottom: 1px solid #212121;
 }
 
 .solutions-tree > div > div {
-    display: flex;
-    height: 128px;
+  display: flex;
+  height: 128px;
 }
 
 .solutions-tree > div > div > div.label {
-    align-self: center;
-    font-weight: bold;
+  align-self: center;
+  font-weight: bold;
 }
 
 .solutions-tree > div > div > div.item.label {
-    border: none;
-    font-weight: bold;
+  border: none;
+  font-weight: bold;
 }
 
 .solutions-tree > div > div > div.item {
-    width: 64px;
-    height: 64px;
-    bottom: -28px;
-    margin: 0px 64px;
-    line-height: 64px;
-    border-radius: 50%;
-    border: 2px solid #212121;
+  width: 64px;
+  height: 64px;
+  bottom: -28px;
+  margin: 0 64px;
+  line-height: 64px;
+  border-radius: 50%;
+  border: 2px solid #212121;
 }
 
 .solutions-tree > div > div > div.item > div {
-    align-self: center;
-    text-align: center;
+  align-self: center;
+  text-align: center;
 }
 
 .solutions-tree > div > div > div.item > span {
-    position: absolute;
-    width: 128px;
-    left: -32px;
-    text-align: center;
+  position: absolute;
+  width: 128px;
+  left: -32px;
+  text-align: center;
 }
 
 .stages > p {
-    font-weight: bold;
-    font-size: 18px;
+  font-weight: bold;
+  font-size: 18px;
 }
 
 .stages > table {
-    margin-bottom: 32px;
+  margin-bottom: 32px;
 }
 
 .result > p {
-    font-weight: bold;
-    font-size: 18px;
-    text-transform: uppercase;
+  font-weight: bold;
+  font-size: 18px;
+  text-transform: uppercase;
 }
 
 .chains-container {
-    display: block;
-    width: 100%;
-    overflow: auto;
+  display: block;
+  width: 100%;
+  overflow: auto;
 }
 
 .chain {
-    display: block;
-    margin: 16px 0px;
-    align-self: center;
+  display: block;
+  margin: 16px 0;
+  align-self: center;
 }
 
 div.chain > span {
-    display: inline-block;
-    width: 64px;
-    height: 64px;
-    margin-right: 32px;
-    border: 2px solid #212121;
-    text-align: center;
-    line-height: 56px;
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+  margin-right: 32px;
+  border: 2px solid #212121;
+  text-align: center;
+  line-height: 56px;
 }
 
- div.chain > span::after {
-    content: '->';
-    position: absolute;
-    right: -24px;
-    top: 0px;
+div.chain > span::after {
+  content: '->';
+  position: absolute;
+  right: -24px;
+  top: 0;
 }
 
 div.chain > span.end::after {
-    content: '';
+  content: '';
 }
 
 div.chain > div {
-    display: inline-block;
+  display: inline-block;
 }
 
 @media only screen and (min-width: 400px) {
-    header {
-        height: 200px;
-    }
-
-    footer {
-        padding: 32px 64px;
-    }
-    
-    footer > div {
-        top: 50%;
-        bottom: initial;
-        transform: translateY(-50%);
-    }
-
-    .top-panel {
-        width: 400px;
-    }    
+  header {
+    height: 200px;
+  }
+  
+  footer {
+    padding: 32px 64px;
+  }
+  
+  footer > div {
+    top: 50%;
+    bottom: initial;
+    transform: translateY(-50%);
+  }
+  
+  .top-panel {
+    width: 400px;
+  }
 }
 
 @media only screen and (min-width: 800px) {
-    header {
-        height: 168px;
-    }
-    
-    header > div > p {
-        font-size: 16px;
-    }
-    
-    header > nav > div > h1 {
-        font-size: 36px;
-    }
-    
-    .top-panel {
-        width: 680px;
-    }
-    
-    .top-panel > div {
-        width: 50%;
-        float: left;
-    }
-    
-    #inputTable {
-        width: 60%;
-        margin: 16px auto;
-    }
+  header {
+    height: 168px;
+  }
+  
+  header > div > p {
+    font-size: 16px;
+  }
+  
+  header > nav > div > h1 {
+    font-size: 36px;
+  }
+  
+  .top-panel {
+    width: 680px;
+  }
+  
+  .top-panel > div {
+    width: 60%;
+    margin: auto;
+  }
+  
+  #inputTable {
+    width: 60%;
+    margin: 16px auto;
+  }
 }

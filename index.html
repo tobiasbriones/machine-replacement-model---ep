@@ -1,122 +1,150 @@
 <!--
-    This file is part of example.math.or.model.web.machine_replacement = Machine Replacement Model.
-    
-    Machine Replacement Model is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-    
-    Machine Replacement Model is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-    
-    You should have received a copy of the GNU General Public License
-    along with Machine Replacement Model.  If not, see <https://www.gnu.org/licenses/>.
--->
+  -- This file is part of example.math.or.model.web.machine-replacement = Machine Replacement Model.
+  -- Copyright (C) 2019 Tobias Briones
+  --
+  -- This program is free software: you can redistribute it and/or modify
+  -- it under the terms of the GNU General Public License as published by
+  -- the Free Software Foundation, either version 3 of the License, or
+  -- (at your option) any later version.
+  --
+  -- This program is distributed in the hope that it will be useful,
+  -- but WITHOUT ANY WARRANTY; without even the implied warranty of
+  -- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  -- GNU General Public License for more details.
+  --
+  -- You should have received a copy of the GNU General Public License
+  -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  -->
 
-<!--
-    Copyright (c) 2019 Tobias Briones
--->
-
-<html>
-    <head>
-        <title>Dynamic programming - Machine replacement model</title>
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link href="https://fonts.googleapis.com/css?family=Noto+Sans+SC&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="css/styles.css">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta charset="UTF-8">
-    </head>
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Dynamic programming - Machine replacement model</title>
+    <link rel="icon"
+          type="image/png"
+          href="https://raw.githubusercontent.com/TobiasBriones/images/master/example-projects/example-projects/favicon.png"
+          sizes="96x96">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+SC&display=swap">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+  </head>
+  
+  <body>
     
-    <body>
-        <header>
-            <nav>
-                <div>
-                    <h1>Machine replacement model</h1>
-                </div>
-            </nav>
-            <div>
-                <p>
-                    This app's model is based upon the one defined on Operations Research: An Introduction 
-                    (7th Edition) Hamdy A. Taha.
-                </p>
-            </div>
-        </header>
-        <div class="container">
-            <div>
-                <a href="pdf/Ejercicio [ES].pdf">Ver ejemplo</a>
-            </div>
-            <div class="top-panel">
-                <div class="years-pane">
-                    <div class="form-group">
-                        <label for="yearsInput">Number of decision years</label>
-                        <input value="4" type="number" class="form-control" id="yearsInput" placeholder="Enter the number of years">
-                    </div>
-                </div>
-                <div class="max-time-pane">
-                    <div class="form-group">
-                        <label for="timeInput">Maximum machine age in years</label>
-                        <input value="6" type="number" class="form-control" id="timeInput"  placeholder="Enter the maximum age">
-                    </div>
-                </div>
-                <div class="initial-age-pane">
-                    <div class="form-group">
-                        <label for="initialAgeInput">Initial machine age in years</label>
-                        <input value="3" type="number" class="form-control" id="initialAgeInput"  placeholder="Enter the initial machine age">
-                    </div>
-                </div>
-                <div class="machine-price-pane">
-                    <div class="form-group">
-                        <label for="machinePrice">New machine's price in dollars</label>
-                        <input value="100000" type="number" class="form-control" id="machinePrice"  placeholder="Enter the price of a new machine">
-                    </div>
-                </div>
-                <div>
-                    <button id="yearsSubmitButton" class="btn btn-primary">Next</button>
-                </div>
-            </div>
-            <div id="inputTable"></div>
-            <div class="solve-button-pane">
-                <button id="solveButton" class="btn btn-primary invisible">Solve</button>
-            </div>
-            <div id="solutionPanel" class="gone">
-                <div class="divider"></div>
-                <div class="solution-title">
-                    <p>Solution</p>
-                </div>
-                <div>
-                    <p>Problem solutions tree</p>
-                    <p>Y-Axis: Machine age in years</p>
-                    <p>X-Axis: Decision year</p>
-                </div>
-                <div class="solutions-tree">
-                    <div></div>
-                </div>
-                <div class="stages"></div>
-                <div class="result">
-                    <p>Result chains</p>
-                    <div class="chains-container"></div>
-                </div>
-            </div>
+    <header>
+      <nav>
+        <div>
+          <h1>Machine replacement model</h1>
         </div>
-        <footer>
-            <p>Operations research - Machine replacement</p>
-            <p>© 2019 Tobias Briones</p>
-            <div>
-                <div>
-                    <a class="btn btn-social-icon btn-github">
-                        <span class="fa fa-github"></span>
-                    </a>
-                    <span>
-                        <a href="https://github.com/TobiasBriones/example.math.or.model.web.machine_replacement">GitHub</a>
-                    </span>
-                </div>
-            </div>
-        </footer>
-        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap.native@2.0.27/dist/bootstrap-native-v4.min.js"></script>
-        <script src="js/solver.js"></script>
-        <script src="js/script.js"></script>
-    </body>
+      </nav>
+      <div>
+        <p>
+          This app's model is based upon the one defined on Operations Research: An Introduction
+          (7th Edition) Hamdy A. Taha.
+        </p>
+      </div>
+    </header>
+    
+    <div class="container">
+      <div>
+        <a href="pdf/Ejercicio [ES].pdf">Ver ejemplo</a>
+      </div>
+      <div class="top-panel">
+        <div class="years-pane">
+          <div class="form-group">
+            <label for="yearsInput">Number of decision years</label>
+            <input id="yearsInput"
+                   class="form-control"
+                   value="4"
+                   type="number"
+                   placeholder="Enter the number of years">
+          </div>
+        </div>
+        <div class="max-time-pane">
+          <div class="form-group">
+            <label for="timeInput">Maximum machine age in years</label>
+            <input id="timeInput"
+                   class="form-control"
+                   value="6"
+                   type="number"
+                   placeholder="Enter the maximum age">
+          </div>
+        </div>
+        <div class="initial-age-pane">
+          <div class="form-group">
+            <label for="initialAgeInput">Initial machine age in years</label>
+            <input id="initialAgeInput"
+                   class="form-control"
+                   value="3"
+                   type="number"
+                   placeholder="Enter the initial machine age">
+          </div>
+        </div>
+        <div class="machine-price-pane">
+          <div class="form-group">
+            <label for="machinePrice">New machine's price in dollars</label>
+            <input id="machinePrice"
+                   class="form-control"
+                   value="100000"
+                   type="number"
+                   placeholder="Enter the price of a new machine">
+          </div>
+        </div>
+        <div>
+          <button id="yearsSubmitButton" class="btn btn-primary">Next</button>
+        </div>
+      </div>
+      <div id="inputTable"></div>
+      <div class="solve-button-pane">
+        <button id="solveButton" class="btn btn-primary invisible">Solve</button>
+      </div>
+      <div id="solutionPanel" class="gone">
+        <div class="divider"></div>
+        <div class="solution-title">
+          <p>Solution</p>
+        </div>
+        <div>
+          <p>Problem solutions tree</p>
+          <p>Y-Axis: Machine age in years</p>
+          <p>X-Axis: Decision year</p>
+        </div>
+        <div class="solutions-tree">
+          <div></div>
+        </div>
+        <div class="stages"></div>
+        <div class="result">
+          <p>Result chains</p>
+          <div class="chains-container"></div>
+        </div>
+      </div>
+    </div>
+    
+    <footer>
+      <p>Operations research - Machine replacement</p>
+      <p>© 2019 Tobias Briones</p>
+      <div>
+        <div>
+          <a class="btn btn-social-icon btn-github">
+            <span class="fa fa-github"></span>
+          </a>
+          <span>
+            <a href="https://github.com/TobiasBriones/example.math.or.model.web.machine_replacement">
+              GitHub
+            </a>
+          </span>
+        </div>
+      </div>
+    </footer>
+    
+    <script type="text/javascript"
+            src="https://cdn.jsdelivr.net/npm/bootstrap.native@2.0.27/dist/bootstrap-native-v4.min.js">
+    </script>
+    <script src="js/solver.js"></script>
+    <script src="js/script.js"></script>
+  
+  </body>
+
 </html>
