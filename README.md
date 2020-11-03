@@ -1,4 +1,4 @@
-# Example Project - Machine Replacement Model
+# Example Project: Machine Replacement Model
 [![License](https://img.shields.io/github/license/TobiasBriones/example.math.or.model.web.machine_replacement)](https://github.com/TobiasBriones/example.math.or.model.web.machine_replacement/blob/master/LICENSE)
 
 Operations research model for machine maintenance/replacement. This app was a sample created in pure JS and Boostrap and it was replaced by 2DP RepSyMo Solver https://github.com/TobiasBriones/2dp-repsymo-solver which is a complete web application that solves several models of dynamic programming.
@@ -11,7 +11,7 @@ Operations research model for machine maintenance/replacement. This app was a sa
 [![Screenshot 1](https://raw.githubusercontent.com/TobiasBriones/images/master/example-projects/example.math.or.model.web.machine-replacement/screenshot-1.png)](https://github.com/TobiasBriones/images/tree/master/example-projects)
 
 ## License
-Example Project - Machine Replacement Model
+Example Project: Machine Replacement Model
 
 Copyright © 2019 Tobias Briones. All rights reserved.
 
