@@ -13,18 +13,18 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License along with
+ * You should have received a copy of the GNU General Public License along with 
  * Machine Replacement Model.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 export class MachineReplacementModel {
   constructor(
-    years = 0,
+    decisionYears = 0,
     initialAge = 0,
     maxAge = 0,
     price = 0
   ) {
-    this.years = years;
+    this.decisionYears = decisionYears;
     this.initialAge = initialAge;
     this.maxAge = maxAge;
     this.price = price;

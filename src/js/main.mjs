@@ -18,6 +18,7 @@
  */
 
 import { MachineReplacementSolver } from './mr/machine-replacement-solver.mjs';
+import { MachineReplacementModel } from './mr/machine-replacement-model.mjs';
 
 const solver = new MachineReplacementSolver();
 
@@ -343,21 +344,18 @@ const onSolve = () => {
     return;
   }
   const data = getData();
-
-  /*console.log(`Solving problem
-   decision years: ${decisionYears}
-   initial age: ${initialAge},
-   maximum age: ${maxAge},
-   machine price: ${machinePrice},
-   data: \n${JSON.stringify(data)}`);*/
-  solver.solve(decisionYears, initialAge, maxAge, machinePrice, data);
+  const model = new MachineReplacementModel(
+    decisionYears,
+    initialAge,
+    maxAge,
+    machinePrice
+  );
+  solver.solve(model, data);
 
   // UI
-  const tree = solver.solutionsTree();
-  const stages = solver.stages();
+  const tree = solver.solutionsTree;
+  const stages = solver.stages;
 
-  /*console.log(`Solutions tree \n${JSON.stringify(tree)}`);
-   console.log(`Stages \n${JSON.stringify(stages)}`);*/
   generateSolutionsTree(tree);
   generateSolutionsStages(stages);
   generateResult(stages, initialAge);
