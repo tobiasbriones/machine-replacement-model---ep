@@ -29,11 +29,39 @@ function Solver() {
   let decisionYearArray = null;
   let stages = null;
 
-  const containsNode = (position, compare) => {
-    return decisionYearArray[position].some(
-      e => e.decisionYear === compare.decisionYear
-        && e.machineAge === compare.machineAge
-    );
+  this.solutionsTree = () => {
+    return decisionYearArray;
+  };
+
+  this.stages = () => {
+    return stages;
+  };
+
+  this.solve = (years, initialAge, maxAge, machinePrice, _data) => {
+    decisionYears = years;
+    initialMachineAge = initialAge;
+    maxMachineAge = maxAge;
+    newMachinePrice = machinePrice;
+    data = _data;
+    decisionYearArray = [];
+    stages = [];
+
+    // Initialize
+    for (let i = 0; i < decisionYears; i++) {
+      decisionYearArray[i] = [];
+      stages[i] = [];
+    }
+
+    // Decision tree
+    createDecisionTree();
+
+    // Solve stages
+    for (let i = decisionYears - 1; i >= 0; i--) {
+      const stage = stages[i];
+      const nextStage = (i < decisionYears - 1) ? stages[i + 1] : null;
+
+      solveStage(stage, nextStage, i);
+    }
   };
 
   const newTreeNode = (machineAge, decisionYear) => {
@@ -45,42 +73,23 @@ function Solver() {
     };
   };
 
-  const fillPath = (node, decisionYear) => {
-    // Basic step
-    if (decisionYear > decisionYears) {
-      return;
-    }
-    const kNode = newTreeNode(node.machineAge + 1, decisionYear + 1);
-    const rNode = newTreeNode(1, decisionYear + 1);
-
-    // Decision year starts at 1 (subtract 1)
-    if (!containsNode(decisionYear - 1, node)) {
-      decisionYearArray[decisionYear - 1].push(node);
-    }
-
-    // Recursive step
-    if (kNode.machineAge <= maxMachineAge) {
-      fillPath(kNode, decisionYear + 1);
-      node.k = kNode;
-    }
-    fillPath(rNode, decisionYear + 1);
-    node.r = rNode;
-  };
-
   const createDecisionTree = () => {
     // It starts from position 1
     const initialNode = newTreeNode(initialMachineAge, 1);
 
-    /*console.log(`Solving tree for:
-     initial age ${initialMachineAge},
-     decision years: ${decisionYears},
-     maximum age: ${maxMachineAge}`);*/
-
     fillPath(initialNode, 1);
 
     // Sort each decision year by age
-    decisionYearArray.forEach(element => element.sort((a, b) => (a.machineAge >
-      b.machineAge) ? 1 : -1));
+    decisionYearArray.forEach(element => element.sort(
+      (a, b) => (a.machineAge > b.machineAge) ? 1 : -1)
+    );
+  };
+
+  const containsNode = (position, compare) => {
+    return decisionYearArray[position].some(
+      e => e.decisionYear === compare.decisionYear
+        && e.machineAge === compare.machineAge
+    );
   };
 
   const solveStage = (stage, nextStage, i) => {
@@ -119,10 +128,6 @@ function Solver() {
       }
       return (r < k) ? 'K' : ((k < r) ? 'R' : 'K or R');
     };
-    /*console.log('Solving stage ' + i)
-     console.log(values)
-     console.log(data)
-     console.log(nextStage)*/
     for (let j = 0; j < values.length; j++) {
       const t = values[j].machineAge;
       const k = getK(t);
@@ -139,38 +144,25 @@ function Solver() {
     }
   };
 
-  this.solve = (years, initialAge, maxAge, machinePrice, _data) => {
-    decisionYears = years;
-    initialMachineAge = initialAge;
-    maxMachineAge = maxAge;
-    newMachinePrice = machinePrice;
-    data = _data;
-    decisionYearArray = [];
-    stages = [];
+  const fillPath = (node, decisionYear) => {
+    // Basic step
+    if (decisionYear > decisionYears) {
+      return;
+    }
+    const kNode = newTreeNode(node.machineAge + 1, decisionYear + 1);
+    const rNode = newTreeNode(1, decisionYear + 1);
 
-    // Initialize
-    for (let i = 0; i < decisionYears; i++) {
-      decisionYearArray[i] = [];
-      stages[i] = [];
+    // Decision year starts at 1 (subtract 1)
+    if (!containsNode(decisionYear - 1, node)) {
+      decisionYearArray[decisionYear - 1].push(node);
     }
 
-    // Decision tree
-    createDecisionTree();
-
-    // Solve stages
-    for (let i = decisionYears - 1; i >= 0; i--) {
-      const stage = stages[i];
-      const nextStage = (i < decisionYears - 1) ? stages[i + 1] : null;
-
-      solveStage(stage, nextStage, i);
+    // Recursive step
+    if (kNode.machineAge <= maxMachineAge) {
+      fillPath(kNode, decisionYear + 1);
+      node.k = kNode;
     }
-  };
-
-  this.solutionsTree = () => {
-    return decisionYearArray;
-  };
-
-  this.stages = () => {
-    return stages;
+    fillPath(rNode, decisionYear + 1);
+    node.r = rNode;
   };
 }
