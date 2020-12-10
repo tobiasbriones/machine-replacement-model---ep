@@ -17,12 +17,20 @@
  * Machine Replacement Model.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { MachineReplacementModel } from './machine-replacement-model.mjs';
-import { TreeNode } from './tree-node.mjs';
+export class MachineReplacementModel {
+  constructor(
+    decisionYears = 0,
+    initialAge = 0,
+    maxAge = 0,
+    price = 0
+  ) {
+    this.decisionYears = decisionYears;
+    this.initialAge = initialAge;
+    this.maxAge = maxAge;
+    this.price = price;
+  }
+}
 
-/**
- * Implements a solver for the model to be used in the application.
- */
 export class MachineReplacementSolver {
   #model;
   #data;
@@ -57,7 +65,7 @@ export class MachineReplacementSolver {
     this.#data = data;
     this.#stages = [];
     this.#solutionsTree = [];
-    const { decisionYears } =  model ;
+    const { decisionYears } = model;
 
     for (let i = 0; i < decisionYears; i++) {
       this.#solutionsTree[i] = [];
@@ -171,4 +179,18 @@ export class MachineReplacementSolver {
     this.#fillPath(rNode, decisionYear + 1);
     node.r = rNode;
   };
+}
+
+class TreeNode {
+  constructor(
+    machineAge = 0,
+    decisionYear = 0,
+    k = null,
+    r = null
+  ) {
+    this.machineAge = machineAge;
+    this.decisionYear = decisionYear;
+    this.k = k;
+    this.r = r;
+  }
 }

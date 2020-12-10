@@ -17,8 +17,8 @@
  * Machine Replacement Model.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { MachineReplacementSolver } from './mr/machine-replacement-solver.mjs';
-import { MachineReplacementModel } from './mr/machine-replacement-model.mjs';
+import { MachineReplacementModel } from './machine-replacement.mjs';
+import { MachineReplacementSolver } from './machine-replacement.mjs';
 
 const solver = new MachineReplacementSolver();
 
