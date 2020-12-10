@@ -17,7 +17,7 @@
  * Machine Replacement Model.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-class MachineReplacementModel {
+export class MachineReplacementModel {
   constructor(
     years = 0,
     initialAge = 0,
