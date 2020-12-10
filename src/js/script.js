@@ -26,7 +26,7 @@ const solver = new Solver();
 // Input table
 const generateInputTable = (n, t) => {
   let html = '';
-  
+
   html += `
     <table class="table">
       <thead>
@@ -47,13 +47,13 @@ const generateInputTable = (n, t) => {
       </thead>
       <tbody>
   `;
-  
+
   for (let y = 0; y <= t; y++) {
     html += `
       <tr>
         <th scope="row">${ y }</th>
     `;
-    
+
     for (let x = 0; x < 3; x++) {
       const id = `input_${ x },${ y }`;
       html += `
@@ -73,7 +73,7 @@ const generateInputTable = (n, t) => {
 const getInputValueAt = (x, y) => {
   const inputValue = document.getElementById(`input_${ x },${ y }`).value;
   const input = parseInt(inputValue);
-  
+
   if (isNaN(input)) {
     alert('All the inputs are integer numbers!');
     return;
@@ -83,11 +83,13 @@ const getInputValueAt = (x, y) => {
 
 const generateDataTable = (data) => {
   const maxAge = parseInt(document.getElementById('timeInput').value);
-  
+
   for (let t = 0; t < data.length; t++) {
-    if (t > maxAge) break;
+    if (t > maxAge) {
+      break;
+    }
     const row = data[t];
-    
+
     document.getElementById(`input_${ 0 },${ t }`).value = row.income;
     document.getElementById(`input_${ 1 },${ t }`).value = row.operationCost;
     document.getElementById(`input_${ 2 },${ t }`).value = row.sellingRevenue;
@@ -102,7 +104,7 @@ const onYearsInput = () => {
   const n = parseInt(nInput);
   const t = parseInt(tInput);
   const initialAge = parseInt(initialAgeInput);
-  
+
   if (isNaN(n) || isNaN(t)) {
     alert('Invalid number');
     return;
@@ -113,7 +115,7 @@ const onYearsInput = () => {
   }
   generateInputTable(n, t);
   document.getElementById('solveButton').classList.remove('invisible');
-  
+
   // Generate sample data
   const newRow = (income, operationCost, sellingRevenue) => {
     return {
@@ -140,7 +142,7 @@ const onYearsInput = () => {
     newRow(14000, 1800, 10000),
     newRow(12200, 2200, 5000)
   ];
-  
+
   generateDataTable(data);
 };
 
@@ -162,19 +164,19 @@ const onSolve = () => {
       };
     };
     const data = [];
-    
+
     for (let t = 0; t <= maxAge; t++) {
       const income = getInputValueAt(0, t);
       const operationCost = getInputValueAt(1, t);
       const sellingRevenue = getInputValueAt(2, t);
-      
+
       data[t] = newRow(income, operationCost, sellingRevenue);
     }
     return data;
   };
   const generateSolutionsTree = tree => {
     let html = '<div>';
-    
+
     // Add rows from up to down
     for (let i = maxAge; i > 0; i--) {
       html += `
@@ -183,12 +185,12 @@ const onSolve = () => {
               ${ i }
           </div>
       `;
-      
+
       // Fill row for each decision year
       for (let j = 0; j < decisionYears; j++) {
         const decisionColumn = tree[j];
         let nodeValue = null;
-        
+
         // Check whether there is a node in here
         for (let k = 0; k < decisionColumn.length; k++) {
           if (decisionColumn[k].machineAge === i) {
@@ -199,7 +201,7 @@ const onSolve = () => {
         if (nodeValue != null) {
           const kNext = nodeValue.k != null ? nodeValue.k.machineAge : '-';
           const rNext = nodeValue.r.machineAge;
-          
+
           html += `
             <div class="item">
                 <div>
@@ -221,7 +223,7 @@ const onSolve = () => {
       <div style="width:${ decisionYears * 192 }px">
         <div class="label"></div>
     `;
-    
+
     // Fill row for each decision year
     for (let j = 1; j <= decisionYears; j++) {
       html += `
@@ -238,7 +240,7 @@ const onSolve = () => {
   };
   const generateSolutionsStages = stages => {
     let html = '';
-    
+
     for (let i = stages.length; i > 0; i--) {
       const stage = stages[i - 1];
       html += `
@@ -255,7 +257,7 @@ const onSolve = () => {
           </thead>
           <tbody>
       `;
-      
+
       stage.forEach(row => {
         html += `
           <tr>
@@ -276,23 +278,25 @@ const onSolve = () => {
     const chains = [];
     const chainsHTML = [];
     const getDecision = (start, t, chains) => {
-      if (start >= stages.length) return;
+      if (start >= stages.length) {
+        return;
+      }
       const decision = getRow(start, t).decision;
       let age = t;
-      
+
       switch (decision) {
         case 'K':
           age += 1;
           break;
-        
+
         case 'R':
           age = 1;
           break;
-        
+
         case 'K or R':
           const newChainK = [];
           const newChainR = [];
-          
+
           getDecision(start + 1, age + 1, newChainK);
           getDecision(start + 1, 1, newChainR);
           chains.push(
@@ -309,7 +313,7 @@ const onSolve = () => {
     const getChainsHTML = (chains, html, initial) => {
       const start = `<div class="chain">`;
       const end = `<div class="end">SELL</div></div>`;
-      
+
       if (html === '') {
         html = start;
       }
@@ -331,7 +335,7 @@ const onSolve = () => {
     getDecision(0, initialAge, chains);
     getChainsHTML(chains, '', null);
     let html = '';
-    
+
     //chainsHTML.pop(); // Don't need the last
     chainsHTML.forEach(chain => html += chain);
     document.querySelector('.chains-container').innerHTML = html;
@@ -341,7 +345,7 @@ const onSolve = () => {
     return;
   }
   const data = getData();
-  
+
   /*console.log(`Solving problem
    decision years: ${decisionYears}
    initial age: ${initialAge},
@@ -349,11 +353,11 @@ const onSolve = () => {
    machine price: ${machinePrice},
    data: \n${JSON.stringify(data)}`);*/
   solver.solve(decisionYears, initialAge, maxAge, machinePrice, data);
-  
+
   // UI
   const tree = solver.solutionsTree();
   const stages = solver.stages();
-  
+
   /*console.log(`Solutions tree \n${JSON.stringify(tree)}`);
    console.log(`Stages \n${JSON.stringify(stages)}`);*/
   generateSolutionsTree(tree);
