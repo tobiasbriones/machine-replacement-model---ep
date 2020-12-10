@@ -17,11 +17,9 @@
  * Machine Replacement Model.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-/*
- * This script handles the application in general.
- */
+import { MachineReplacementSolver } from './mr/machine-replacement-solver.mjs';
 
-const solver = new Solver();
+const solver = new MachineReplacementSolver();
 
 // Input table
 const generateInputTable = (n, t) => {
