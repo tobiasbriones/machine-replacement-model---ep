@@ -21,8 +21,8 @@ export class TreeNode {
   constructor(
     machineAge = 0,
     decisionYear = 0,
-    k = 0,
-    r = 0
+    k = null,
+    r = null
   ) {
     this.machineAge = machineAge;
     this.decisionYear = decisionYear;
