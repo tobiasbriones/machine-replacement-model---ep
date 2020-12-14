@@ -25,6 +25,8 @@ export function init() {
   page.init();
 }
 
+const chainValueK = 'K';
+const chainValueR = 'R';
 const yearsNextButtonId = 'yearsSubmitButton';
 const solveButtonId = 'solveButton';
 const yearsInputId = 'yearsInput';
@@ -429,16 +431,11 @@ function getSolutionsStagesHtml(stages) {
 function getResultChainsHtml(stages, initialAge) {
   const getRow = (i, t) => stages[i].find(stage => stage.t === t);
   const chains = [];
-  const htmlChains = [];
 
   getDecision(0, initialAge, chains);
-  getChainsHtml({ chainValue: null, htmlValue: '' }, chains, htmlChains);
-  let html = '';
+  const chainsElement = getChainsEl(chains);
+  let html = chainsElement.outerHTML;
 
-  //chainsHTML.pop(); // Don't need the last
-  htmlChains.forEach(chain => {
-    html += chain;
-  });
   return html;
 
   function getDecision(start, t, chains) {
@@ -475,38 +472,74 @@ function getResultChainsHtml(stages, initialAge) {
     getDecision(start + 1, age, chains);
   }
 
-  function getChainsHtml(value, chains, htmlChains) {
-    const getChainHtml = chain => `<span>${ chain }</span>`;
-    const htmlStart = `<div class="chain">`;
-    const htmlEnd = `<div class="end">SELL</div></div>`;
-    const chainValue = value.chainValue;
-    let chainHtml = value.htmlValue;
+  function getChainsEl(chains) {
+    const el = getChainsParentElement();
+    const singleChainElements = getSingleChainElements(chains);
 
-    if (chainHtml === '') {
-      chainHtml = htmlStart;
+    singleChainElements.forEach(child => el.appendChild(child));
+    return el;
+
+    function getChainsParentElement() {
+      const el = document.createElement('div');
+      el.classList.add('chains-container');
+      return el;
     }
-    if (chainValue !== null) {
-      chainHtml += getChainHtml(chainValue);
-    }
-    chains.forEach(chain => {
-      if (typeof chain === 'string') {
-        chainHtml += getChainHtml(chain);
-      }
-      else {
-        getChainsHtml(
-          { chainValue: 'K', htmlValue: chainHtml },
-          chain.k,
-          htmlChains
-        );
-        getChainsHtml(
-          { chainValue: 'R', htmlValue: chainHtml },
-          chain.r,
-          htmlChains
-        );
-      }
-    });
-    chainHtml += htmlEnd;
-    htmlChains.push(chainHtml);
   }
 
+  function getSingleChainElements(chains) {
+    const children = [];
+    const element = getSingleChainParentEl();
+
+    appendSingleChainElements(chains, element, children);
+    return children;
+
+    function getSingleChainParentEl() {
+      const el = document.createElement('div');
+      el.classList.add('chain');
+      return el;
+    }
+  }
+
+  function appendSingleChainElements(chains, element, elementArray) {
+    const copyOf = el => el.cloneNode(true);
+    const isChainValue = chainItem => typeof chainItem === 'string';
+    const getChainValueEl = chainValue => getSpanEl(chainValue);
+    const appendFinalChild = el => el.appendChild(getFinalChild());
+    const appendChild = (el, chainValue) => el.appendChild(getChainValueEl(chainValue));
+    const appendChainRecursive = (el, chainValue, chains, elementArray) => {
+      appendChild(el, chainValue);
+      appendSingleChainElements(chains, el, elementArray);
+    };
+    const appendComposedChainRecursive = (el, chainItem, elementArray) => {
+      const newSingleChainEl = copyOf(el);
+
+      appendChainRecursive(el, chainValueK, chainItem.k, elementArray);
+      appendChainRecursive(newSingleChainEl, chainValueR, chainItem.r, elementArray);
+      elementArray.push(newSingleChainEl);
+    };
+
+    elementArray.push(element);
+    for (const chainItem of chains) {
+      if (isChainValue(chainItem)) {
+        appendChild(element, chainItem);
+      }
+      else {
+        appendComposedChainRecursive(element, chainItem, elementArray);
+      }
+    }
+    appendFinalChild(element);
+
+    function getSpanEl(text) {
+      const el = document.createElement('span');
+      el.innerText = text;
+      return el;
+    }
+
+    function getFinalChild() {
+      const el = document.createElement('div');
+      el.classList.add('end');
+      el.innerText = 'SELL';
+      return el;
+    }
+  }
 }
