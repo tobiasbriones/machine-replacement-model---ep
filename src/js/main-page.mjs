@@ -487,11 +487,20 @@ function getResultChainsHtml(stages, initialAge) {
   }
 
   function getSingleChainElements(chains) {
-    const children = [];
-    const element = getSingleChainParentEl();
+    const singleChainElements = {
+      array: [],
+      initialChainEl: getSingleChainParentEl(),
+      appendChildren(chains) {
+        appendSingleChainValueElements(
+          this.initialChainEl,
+          chains,
+          this.array
+        );
+      }
+    };
 
-    appendSingleChainElements(chains, element, children);
-    return children;
+    singleChainElements.appendChildren(chains);
+    return singleChainElements.array;
 
     function getSingleChainParentEl() {
       const el = document.createElement('div');
@@ -500,15 +509,14 @@ function getResultChainsHtml(stages, initialAge) {
     }
   }
 
-  function appendSingleChainElements(chains, element, elementArray) {
-    const copyOf = el => el.cloneNode(true);
+  function appendSingleChainValueElements(singleChainParentEl, chains, elementArray) {
     const isChainValue = chainItem => typeof chainItem === 'string';
     const getChainValueEl = chainValue => getSpanEl(chainValue);
     const appendFinalChild = el => el.appendChild(getFinalChild());
     const appendChild = (el, chainValue) => el.appendChild(getChainValueEl(chainValue));
     const appendChainRecursive = (el, chainValue, chains, elementArray) => {
       appendChild(el, chainValue);
-      appendSingleChainElements(chains, el, elementArray);
+      appendSingleChainValueElements(el, chains, elementArray);
     };
     const appendComposedChainRecursive = (el, chainItem, elementArray) => {
       const newSingleChainEl = copyOf(el);
@@ -518,16 +526,21 @@ function getResultChainsHtml(stages, initialAge) {
       elementArray.push(newSingleChainEl);
     };
 
-    elementArray.push(element);
+    elementArray.push(singleChainParentEl);
     for (const chainItem of chains) {
       if (isChainValue(chainItem)) {
-        appendChild(element, chainItem);
+        appendChild(singleChainParentEl, chainItem);
       }
       else {
-        appendComposedChainRecursive(element, chainItem, elementArray);
+        appendComposedChainRecursive(singleChainParentEl, chainItem, elementArray);
+        return;
       }
     }
-    appendFinalChild(element);
+    appendFinalChild(singleChainParentEl);
+
+    function copyOf(el) {
+      return el.cloneNode(true);
+    }
 
     function getSpanEl(text) {
       const el = document.createElement('span');
