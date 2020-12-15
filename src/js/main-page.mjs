@@ -498,7 +498,6 @@ function getResultChainsHtml(stages, initialAge) {
         );
       }
     };
-
     singleChainElements.appendChildren(chains);
     return singleChainElements.array;
 
@@ -523,10 +522,8 @@ function getResultChainsHtml(stages, initialAge) {
 
       appendChainRecursive(el, chainValueK, chainItem.k, elementArray);
       appendChainRecursive(newSingleChainEl, chainValueR, chainItem.r, elementArray);
-      elementArray.push(newSingleChainEl);
     };
 
-    elementArray.push(singleChainParentEl);
     for (const chainItem of chains) {
       if (isChainValue(chainItem)) {
         appendChild(singleChainParentEl, chainItem);
@@ -537,6 +534,7 @@ function getResultChainsHtml(stages, initialAge) {
       }
     }
     appendFinalChild(singleChainParentEl);
+    elementArray.push(singleChainParentEl);
 
     function copyOf(el) {
       return el.cloneNode(true);
