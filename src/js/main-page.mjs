@@ -489,17 +489,21 @@ function getResultChainsHtml(stages, initialAge) {
   function getSingleChainElements(chains) {
     const singleChainElements = {
       array: [],
-      initialChainEl: getSingleChainParentEl(),
       appendChildren(chains) {
-        appendSingleChainValueElements(
-          this.initialChainEl,
-          chains,
-          this.array
-        );
+        this.array = collectSingleChainElements(chains);
       }
     };
+
     singleChainElements.appendChildren(chains);
     return singleChainElements.array;
+  }
+
+  function collectSingleChainElements(chains) {
+    const singleChainElements = [];
+    const initialChainEl = getSingleChainParentEl();
+
+    appendSingleChainValueElements(initialChainEl, chains, singleChainElements);
+    return singleChainElements;
 
     function getSingleChainParentEl() {
       const el = document.createElement('div');
@@ -523,6 +527,7 @@ function getResultChainsHtml(stages, initialAge) {
       appendChainRecursive(el, chainValueK, chainItem.k, elementArray);
       appendChainRecursive(newSingleChainEl, chainValueR, chainItem.r, elementArray);
     };
+    let isSingleChainParentElDone = false;
 
     for (const chainItem of chains) {
       if (isChainValue(chainItem)) {
@@ -530,11 +535,13 @@ function getResultChainsHtml(stages, initialAge) {
       }
       else {
         appendComposedChainRecursive(singleChainParentEl, chainItem, elementArray);
-        return;
+        isSingleChainParentElDone = true;
       }
     }
-    appendFinalChild(singleChainParentEl);
-    elementArray.push(singleChainParentEl);
+    if (!isSingleChainParentElDone) {
+      appendFinalChild(singleChainParentEl);
+      elementArray.push(singleChainParentEl);
+    }
 
     function copyOf(el) {
       return el.cloneNode(true);
