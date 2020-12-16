@@ -203,12 +203,12 @@ footer a:hover {
   text-align: center;
 }
 
-.stages > p {
+.stages > div > p {
   font-size: 18px;
   font-weight: bold;
 }
 
-.stages > table {
+.stages > div > table {
   margin-bottom: 32px;
 }
 

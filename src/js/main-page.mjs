@@ -192,8 +192,8 @@ class MainPage {
     const stages = this.#solver.stages;
     const model = this.#getModel();
     const solution = {
-      treeEl: getSolutionsTreeEl(tree, model),
-      stagesHtml: getSolutionsStagesHtml(stages),
+      treeEl: getSolutionTreeEl(tree, model),
+      stagesEl: getSolutionStagesEl(stages),
       chainResultHtml: getResultChainsHtml(stages, this.initialAge)
     };
     this.#setSolutionToView(solution);
@@ -205,7 +205,7 @@ class MainPage {
     const chainResultView = this.#view.querySelector('.chains-container');
 
     solutionsTreeView.appendChild(solution.treeEl);
-    stagesView.innerHTML = solution.stagesHtml;
+    stagesView.appendChild(solution.stagesEl);
     chainResultView.innerHTML = solution.chainResultHtml;
     document.getElementById('solutionPanel').classList.remove('gone');
   }
@@ -327,7 +327,7 @@ function getInputTableHtml(n, t) {
   return html;
 }
 
-function getSolutionsTreeEl(tree, model) {
+function getSolutionTreeEl(tree, model) {
   const getRowEl = () => {
     const rowEl = document.createElement('div');
 
@@ -425,40 +425,76 @@ function getSolutionsTreeEl(tree, model) {
   }
 }
 
-function getSolutionsStagesHtml(stages) {
-  let html = '';
+function getSolutionStagesEl(stages) {
+  const appendTitle = (el, stageNumber) => el.appendChild(getStageTitleEl(stageNumber));
+  const appendTable = (el, stage) => el.appendChild(getTableEL(stage));
+  const el = document.createElement('div');
 
   for (let i = stages.length; i > 0; i--) {
     const stage = stages[i - 1];
-    html += `
-        <p>STAGE ${ i }</p>
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">t</th>
-              <th scope="col">K</th>
-              <th scope="col">R</th>
-              <th scope="col">max</th>
-              <th scope="col">Decision</th>
-            </tr>
-          </thead>
-          <tbody>
-      `;
 
-    stage.forEach(row => {
-      html += `
-          <tr>
-            <th scope="row">${ row.t }</th>
-            <td>${ row.k }</td>
-            <td>${ row.r }</td>
-            <td>${ row.max }</td>
-            <td>${ row.decision }</td>
-          </tr>
-        `;
-    });
-    html += '</tbody></table>';
+    appendTitle(el, i);
+    appendTable(el, stage);
   }
-  return html;
+  return el;
+
+  function getStageTitleEl(stageNumber) {
+    const el = document.createElement('p');
+
+    el.innerText = `STAGE ${ stageNumber.toString() }`;
+    return el;
+  }
+
+  function getTableEL(stage) {
+    const el = document.createElement('table');
+    const thead = document.createElement('thead');
+    const tr = document.createElement('tr');
+    const tbody = document.createElement('tbody');
+
+    el.classList.add('table');
+    tr.appendChild(getThEl('t'));
+    tr.appendChild(getThEl('K'));
+    tr.appendChild(getThEl('R'));
+    tr.appendChild(getThEl('max'));
+    tr.appendChild(getThEl('Decision'));
+    thead.appendChild(tr);
+    el.appendChild(thead);
+
+    for (const row of stage) {
+      tbody.appendChild(getTrEl(row));
+    }
+    el.appendChild(tbody);
+    return el;
+  }
+
+  function getThEl(value) {
+    const el = document.createElement('th');
+
+    el.attributes.scope = 'col';
+    el.innerText = value;
+    return el;
+  }
+
+  function getTrEl(row) {
+    const el = document.createElement('tr');
+    const thEl = document.createElement('th');
+
+    thEl.attributes.scope = 'row';
+    thEl.innerText = row.t.toString();
+    el.appendChild(thEl);
+    el.appendChild(getTdEl(row.k));
+    el.appendChild(getTdEl(row.r));
+    el.appendChild(getTdEl(row.max));
+    el.appendChild(getTdEl(row.decision));
+    return el;
+  }
+
+  function getTdEl(value) {
+    const el = document.createElement('td');
+
+    el.innerText = value.toString();
+    return el;
+  }
 }
 
 function getResultChainsHtml(stages, initialAge) {
