@@ -434,7 +434,7 @@ function getResultChainsHtml(stages, initialAge) {
 
   getDecision(0, initialAge, chains);
   const chainsElement = getChainsEl(chains);
-  let html = chainsElement.outerHTML;
+  let html = chainsElement.innerHTML;
 
   return html;
 
@@ -479,9 +479,7 @@ function getResultChainsHtml(stages, initialAge) {
     return el;
 
     function getChainsParentElement() {
-      const el = document.createElement('div');
-      el.classList.add('chains-container');
-      return el;
+      return document.querySelector('.chains-container');
     }
   }
 
