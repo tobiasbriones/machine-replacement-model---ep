@@ -41,10 +41,11 @@ const machinePriceInputId = 'machinePriceInput';
  * - t := time
  */
 class MainPage {
-  #solver = new MachineReplacementSolver();
+  #solver;
   #view;
 
   constructor() {
+    this.#solver = new MachineReplacementSolver();
     this.#view = null;
   }
 
@@ -191,7 +192,7 @@ class MainPage {
     const stages = this.#solver.stages;
     const model = this.#getModel();
     const solution = {
-      treeHtml: getSolutionsTreeHtml(tree, model),
+      treeEl: getSolutionsTreeEl(tree, model),
       stagesHtml: getSolutionsStagesHtml(stages),
       chainResultHtml: getResultChainsHtml(stages, this.initialAge)
     };
@@ -203,7 +204,7 @@ class MainPage {
     const stagesView = this.#view.querySelector('.stages');
     const chainResultView = this.#view.querySelector('.chains-container');
 
-    solutionsTreeView.innerHTML = solution.treeHtml;
+    solutionsTreeView.appendChild(solution.treeEl);
     stagesView.innerHTML = solution.stagesHtml;
     chainResultView.innerHTML = solution.chainResultHtml;
     document.getElementById('solutionPanel').classList.remove('gone');
@@ -326,70 +327,102 @@ function getInputTableHtml(n, t) {
   return html;
 }
 
-function getSolutionsTreeHtml(tree, model) {
+function getSolutionsTreeEl(tree, model) {
+  const getRowEl = () => {
+    const rowEl = document.createElement('div');
+
+    rowEl.style.width = `${ decisionYears * 192 }px`;
+    return rowEl;
+  };
+
+  const getRowLabelEl = machineAge => {
+    const el = document.createElement('div');
+
+    el.classList.add('label');
+    el.innerText = machineAge;
+    return el;
+  };
+
+  const appendXAxisRowEl = el => {
+    const rowEl = getRowEl();
+
+    appendXAxisLabelNodes(rowEl);
+    el.appendChild(rowEl);
+  };
+
   const { decisionYears, maxAge } = model;
-  let html = '<div>';
+  const el = document.createElement('div');
 
-  // Add rows from up to down
-  for (let i = maxAge; i > 0; i--) {
-    html += `
-        <div style="width:${ decisionYears * 192 }px;">
-          <div class="label">
-              ${ i }
-          </div>
-      `;
+  for (let y = maxAge; y > 0; y--) {
+    const rowEl = getRowEl();
 
-    // Fill row for each decision year
-    for (let j = 0; j < decisionYears; j++) {
-      const decisionColumn = tree[j];
-      let nodeValue = null;
+    setRowEl(rowEl, y);
+    el.appendChild(rowEl);
+  }
 
-      // Check whether there is a node in here
-      for (let k = 0; k < decisionColumn.length; k++) {
-        if (decisionColumn[k].machineAge === i) {
-          nodeValue = decisionColumn[k];
-          break;
-        }
-      }
-      if (nodeValue !== null) {
-        const kNext = nodeValue.k !== null ? nodeValue.k.machineAge : '-';
-        const rNext = nodeValue.r.machineAge;
+  appendXAxisRowEl(el);
+  return el;
 
-        html += `
-            <div class="item">
-                <div>
-                    ${ nodeValue.machineAge }
-                </div>
-                <span>
-                    (K: ${ kNext }, R: ${ rNext })
-                </span>
-            </div>
-          `;
+  function setRowEl(rowEl, machineAge) {
+    const rowLabelEl = getRowLabelEl(machineAge);
+
+    rowEl.appendChild(rowLabelEl);
+    appendTreeNodes(rowEl, machineAge);
+  }
+
+  function appendTreeNodes(rowEl, machineAge) {
+    for (let x = 0; x < decisionYears; x++) {
+      const decisionColumn = tree[x];
+      const nodeValue = getNodeValue(machineAge, decisionColumn);
+
+      if (nodeValue === null) {
+        const invisibleItemEl = document.createElement('div');
+
+        invisibleItemEl.classList.add('item');
+        invisibleItemEl.classList.add('invisible');
+        rowEl.appendChild(invisibleItemEl);
       }
       else {
-        html += `<div class="item invisible"></div>`;
+        const kNext = nodeValue.k !== null ? nodeValue.k.machineAge : '-';
+        const rNext = nodeValue.r.machineAge;
+        const itemEl = document.createElement('div');
+        const itemMachineAgeEl = document.createElement('div');
+        const itemPairValueEl = document.createElement('span');
+
+        itemMachineAgeEl.innerText = nodeValue.machineAge.toString();
+        itemPairValueEl.innerText = `(K: ${ kNext }, R: ${ rNext })`;
+        itemEl.classList.add('item');
+        itemEl.appendChild(itemMachineAgeEl);
+        itemEl.appendChild(itemPairValueEl);
+        rowEl.appendChild(itemEl);
       }
     }
-    html += '</div>';
   }
-  html += `
-      <div style="width:${ decisionYears * 192 }px;">
-        <div class="label"></div>
-    `;
 
-  // Fill row for each decision year
-  for (let j = 1; j <= decisionYears; j++) {
-    html += `
-        <div class="item label">
-            <div>
-                ${ j }
-            </div>
-        </div>
-        `;
+  function appendXAxisLabelNodes(rowEl) {
+    for (let x = 1; x <= decisionYears; x++) {
+      const itemEl = document.createElement('div');
+      const xAxisLabelEl = document.createElement('div');
+
+      xAxisLabelEl.innerText = x.toString();
+      itemEl.classList.add('item');
+      itemEl.classList.add('label');
+      itemEl.appendChild(xAxisLabelEl);
+      rowEl.appendChild(itemEl);
+    }
   }
-  html += '</div>';
-  html += '</div>';
-  return html;
+
+  function getNodeValue(machineAge, decisionColumn) {
+    let nodeValue = null;
+
+    for (let k = 0; k < decisionColumn.length; k++) {
+      if (decisionColumn[k].machineAge === machineAge) {
+        nodeValue = decisionColumn[k];
+        break;
+      }
+    }
+    return nodeValue;
+  }
 }
 
 function getSolutionsStagesHtml(stages) {
