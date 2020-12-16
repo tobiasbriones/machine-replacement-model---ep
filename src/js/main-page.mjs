@@ -474,9 +474,8 @@ function getResultChainsHtml(stages, initialAge) {
 
   function getChainsEl(chains) {
     const el = getChainsParentElement();
-    const singleChainElements = getSingleChainElements(chains);
 
-    singleChainElements.forEach(child => el.appendChild(child));
+    collectSingleChainElements(el, chains);
     return el;
 
     function getChainsParentElement() {
@@ -486,24 +485,10 @@ function getResultChainsHtml(stages, initialAge) {
     }
   }
 
-  function getSingleChainElements(chains) {
-    const singleChainElements = {
-      array: [],
-      appendChildren(chains) {
-        this.array = collectSingleChainElements(chains);
-      }
-    };
-
-    singleChainElements.appendChildren(chains);
-    return singleChainElements.array;
-  }
-
-  function collectSingleChainElements(chains) {
-    const singleChainElements = [];
+  function collectSingleChainElements(parentEl, chains) {
     const initialChainEl = getSingleChainParentEl();
 
-    appendSingleChainValueElements(initialChainEl, chains, singleChainElements);
-    return singleChainElements;
+    appendSingleChainElements(parentEl, initialChainEl, chains);
 
     function getSingleChainParentEl() {
       const el = document.createElement('div');
@@ -512,35 +497,36 @@ function getResultChainsHtml(stages, initialAge) {
     }
   }
 
-  function appendSingleChainValueElements(singleChainParentEl, chains, elementArray) {
+  function appendSingleChainElements(parentEl, singleChainParentEl, chains) {
     const isChainValue = chainItem => typeof chainItem === 'string';
     const getChainValueEl = chainValue => getSpanEl(chainValue);
-    const appendFinalChild = el => el.appendChild(getFinalChild());
-    const appendChild = (el, chainValue) => el.appendChild(getChainValueEl(chainValue));
-    const appendChainRecursive = (el, chainValue, chains, elementArray) => {
-      appendChild(el, chainValue);
-      appendSingleChainValueElements(el, chains, elementArray);
+    const appendSingleChainFinalChild = el => el.appendChild(getFinalChild());
+    const appendSingleChainChild = (el, chainValue) => el.appendChild(getChainValueEl(chainValue));
+    const appendSingleChain = (parentEl, singleChainEl) => parentEl.appendChild(singleChainEl);
+    const appendChainRecursive = (parentEl, singleChainParentEl, chainValue, chains) => {
+      appendSingleChainChild(singleChainParentEl, chainValue);
+      appendSingleChainElements(parentEl, singleChainParentEl, chains);
     };
-    const appendComposedChainRecursive = (el, chainItem, elementArray) => {
-      const newSingleChainEl = copyOf(el);
+    const appendComposedChainRecursive = (parentEl, singleChainParentEl, chainItem) => {
+      const newSingleChainEl = copyOf(singleChainParentEl);
 
-      appendChainRecursive(el, chainValueK, chainItem.k, elementArray);
-      appendChainRecursive(newSingleChainEl, chainValueR, chainItem.r, elementArray);
+      appendChainRecursive(parentEl, singleChainParentEl, chainValueK, chainItem.k);
+      appendChainRecursive(parentEl, newSingleChainEl, chainValueR, chainItem.r);
     };
     let isSingleChainParentElDone = false;
 
     for (const chainItem of chains) {
       if (isChainValue(chainItem)) {
-        appendChild(singleChainParentEl, chainItem);
+        appendSingleChainChild(singleChainParentEl, chainItem);
       }
       else {
-        appendComposedChainRecursive(singleChainParentEl, chainItem, elementArray);
+        appendComposedChainRecursive(parentEl, singleChainParentEl, chainItem);
         isSingleChainParentElDone = true;
       }
     }
     if (!isSingleChainParentElDone) {
-      appendFinalChild(singleChainParentEl);
-      elementArray.push(singleChainParentEl);
+      appendSingleChainFinalChild(singleChainParentEl);
+      appendSingleChain(parentEl, singleChainParentEl);
     }
 
     function copyOf(el) {
