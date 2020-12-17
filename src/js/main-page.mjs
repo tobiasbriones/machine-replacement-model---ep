@@ -260,34 +260,24 @@ class MainPage {
   }
 }
 
-function sampleData() {
-  const newRow = (income, operationCost, sellingRevenue) => {
-    return {
-      income: income,
-      operationCost: operationCost,
-      sellingRevenue: sellingRevenue
-    };
-  };
-  return [
-    newRow(20000, 200, -1),
-    newRow(19000, 600, 80000),
-    newRow(18500, 1200, 60000),
-    newRow(17200, 1500, 50000),
-    newRow(15500, 1700, 30000),
-    newRow(14000, 1800, 10000),
-    newRow(12200, 2200, 5000)
-  ];
+function getSpanEl(text) {
+  const el = document.createElement('span');
+
+  el.innerText = text;
+  return el;
 }
 
 function getInputTableEl(time) {
-  const el = document.createElement('table');
-  const tHeadEl = getTheadEl();
-  const tBodyEl = getTbodyEl(time);
+  return (() => {
+    const el = document.createElement('table');
+    const tHeadEl = getTheadEl();
+    const tBodyEl = getTbodyEl(time);
 
-  el.classList.add('table');
-  el.appendChild(tHeadEl);
-  el.appendChild(tBodyEl);
-  return el;
+    el.classList.add('table');
+    el.appendChild(tHeadEl);
+    el.appendChild(tBodyEl);
+    return el;
+  })();
 
   function getTheadEl() {
     const el = document.createElement('thead');
@@ -345,40 +335,27 @@ function getInputTableEl(time) {
 }
 
 function getSolutionTreeEl(tree, model) {
-  const getRowEl = () => {
-    const rowEl = document.createElement('div');
-
-    rowEl.style.width = `${ decisionYears * 192 }px`;
-    return rowEl;
-  };
-
-  const getRowLabelEl = machineAge => {
+  return (() => {
     const el = document.createElement('div');
+    const { maxAge } = model;
 
-    el.classList.add('label');
-    el.innerText = machineAge;
+    for (let y = maxAge; y > 0; y--) {
+      const rowEl = getRowEl();
+
+      setRowEl(rowEl, y);
+      el.appendChild(rowEl);
+    }
+    appendXAxisRowEl(el);
     return el;
-  };
+  })();
 
-  const appendXAxisRowEl = el => {
-    const rowEl = getRowEl();
+  function getRowEl() {
+    const el = document.createElement('div');
+    const { decisionYears } = model;
 
-    appendXAxisLabelNodes(rowEl);
-    el.appendChild(rowEl);
-  };
-
-  const { decisionYears, maxAge } = model;
-  const el = document.createElement('div');
-
-  for (let y = maxAge; y > 0; y--) {
-    const rowEl = getRowEl();
-
-    setRowEl(rowEl, y);
-    el.appendChild(rowEl);
+    el.style.width = `${ decisionYears * 192 }px`;
+    return el;
   }
-
-  appendXAxisRowEl(el);
-  return el;
 
   function setRowEl(rowEl, machineAge) {
     const rowLabelEl = getRowLabelEl(machineAge);
@@ -387,7 +364,24 @@ function getSolutionTreeEl(tree, model) {
     appendTreeNodes(rowEl, machineAge);
   }
 
+  function getRowLabelEl(machineAge) {
+    const el = document.createElement('div');
+
+    el.classList.add('label');
+    el.innerText = machineAge;
+    return el;
+  }
+
+  function appendXAxisRowEl(el) {
+    const rowEl = getRowEl();
+
+    appendXAxisLabelNodes(rowEl);
+    el.appendChild(rowEl);
+  }
+
   function appendTreeNodes(rowEl, machineAge) {
+    const { decisionYears } = model;
+
     for (let x = 0; x < decisionYears; x++) {
       const decisionColumn = tree[x];
       const nodeValue = getNodeValue(machineAge, decisionColumn);
@@ -417,6 +411,8 @@ function getSolutionTreeEl(tree, model) {
   }
 
   function appendXAxisLabelNodes(rowEl) {
+    const { decisionYears } = model;
+
     for (let x = 1; x <= decisionYears; x++) {
       const itemEl = document.createElement('div');
       const xAxisLabelEl = document.createElement('div');
@@ -443,17 +439,19 @@ function getSolutionTreeEl(tree, model) {
 }
 
 function getSolutionStagesEl(stages) {
-  const appendTitle = (el, stageNumber) => el.appendChild(getStageTitleEl(stageNumber));
-  const appendTable = (el, stage) => el.appendChild(getTableEL(stage));
-  const el = document.createElement('div');
+  return (() => {
+    const appendTitle = (el, stageNumber) => el.appendChild(getStageTitleEl(stageNumber));
+    const appendTable = (el, stage) => el.appendChild(getTableEL(stage));
+    const el = document.createElement('div');
 
-  for (let i = stages.length; i > 0; i--) {
-    const stage = stages[i - 1];
+    for (let i = stages.length; i > 0; i--) {
+      const stage = stages[i - 1];
 
-    appendTitle(el, i);
-    appendTable(el, stage);
-  }
-  return el;
+      appendTitle(el, i);
+      appendTable(el, stage);
+    }
+    return el;
+  })();
 
   function getStageTitleEl(stageNumber) {
     const el = document.createElement('p');
@@ -515,11 +513,42 @@ function getSolutionStagesEl(stages) {
 }
 
 function getResultChainsEl(stages, initialAge) {
-  const getRow = (i, t) => stages[i].find(stage => stage.t === t);
-  const chains = [];
+  return (() => {
+    const chains = [];
 
-  collectDecisionChains(0, initialAge, chains);
-  return getChainsEl(chains);
+    collectDecisionChains(0, initialAge, chains);
+    return getChainsEl(chains);
+  })();
+
+  function getChainsEl(chains) {
+    const el = getChainsParentElement();
+
+    collectSingleChainElements(el, chains);
+    return el;
+  }
+
+  function getChainsParentElement() {
+    return document.createElement('div');
+  }
+
+  function getSingleChainParentEl() {
+    const el = document.createElement('div');
+
+    el.classList.add('chain');
+    return el;
+  }
+
+  function getRow(i, t) {
+    return stages[i].find(stage => stage.t === t);
+  }
+
+  function getSingleChainFinalChild() {
+    const el = document.createElement('div');
+
+    el.classList.add('end');
+    el.innerText = 'SELL';
+    return el;
+  }
 
   function collectDecisionChains(start, t, chains) {
     if (start >= stages.length) {
@@ -555,33 +584,16 @@ function getResultChainsEl(stages, initialAge) {
     collectDecisionChains(start + 1, age, chains);
   }
 
-  function getChainsEl(chains) {
-    const el = getChainsParentElement();
-
-    collectSingleChainElements(el, chains);
-    return el;
-
-    function getChainsParentElement() {
-      return document.createElement('div');
-    }
-  }
-
   function collectSingleChainElements(parentEl, chains) {
     const initialChainEl = getSingleChainParentEl();
 
     appendSingleChainElements(parentEl, initialChainEl, chains);
-
-    function getSingleChainParentEl() {
-      const el = document.createElement('div');
-      el.classList.add('chain');
-      return el;
-    }
   }
 
   function appendSingleChainElements(parentEl, singleChainParentEl, chains) {
     const isChainValue = chainItem => typeof chainItem === 'string';
     const getChainValueEl = chainValue => getSpanEl(chainValue);
-    const appendSingleChainFinalChild = el => el.appendChild(getFinalChild());
+    const appendSingleChainFinalChild = el => el.appendChild(getSingleChainFinalChild());
     const appendSingleChainChild = (el, chainValue) => el.appendChild(getChainValueEl(chainValue));
     const appendSingleChain = (parentEl, singleChainEl) => parentEl.appendChild(singleChainEl);
     const appendChainRecursive = (parentEl, singleChainParentEl, chainValue, chains) => {
@@ -589,7 +601,7 @@ function getResultChainsEl(stages, initialAge) {
       appendSingleChainElements(parentEl, singleChainParentEl, chains);
     };
     const appendComposedChainRecursive = (parentEl, singleChainParentEl, chainItem) => {
-      const newSingleChainEl = copyOf(singleChainParentEl);
+      const newSingleChainEl = deepCopyOf(singleChainParentEl);
 
       appendChainRecursive(parentEl, singleChainParentEl, chainValueK, chainItem.k);
       appendChainRecursive(parentEl, newSingleChainEl, chainValueR, chainItem.r);
@@ -609,22 +621,28 @@ function getResultChainsEl(stages, initialAge) {
       appendSingleChainFinalChild(singleChainParentEl);
       appendSingleChain(parentEl, singleChainParentEl);
     }
-
-    function copyOf(el) {
-      return el.cloneNode(true);
-    }
-
-    function getSpanEl(text) {
-      const el = document.createElement('span');
-      el.innerText = text;
-      return el;
-    }
-
-    function getFinalChild() {
-      const el = document.createElement('div');
-      el.classList.add('end');
-      el.innerText = 'SELL';
-      return el;
-    }
   }
+}
+
+function deepCopyOf(el) {
+  return el.cloneNode(true);
+}
+
+function sampleData() {
+  const newRow = (income, operationCost, sellingRevenue) => {
+    return {
+      income: income,
+      operationCost: operationCost,
+      sellingRevenue: sellingRevenue
+    };
+  };
+  return [
+    newRow(20000, 200, -1),
+    newRow(19000, 600, 80000),
+    newRow(18500, 1200, 60000),
+    newRow(17200, 1500, 50000),
+    newRow(15500, 1700, 30000),
+    newRow(14000, 1800, 10000),
+    newRow(12200, 2200, 5000)
+  ];
 }
