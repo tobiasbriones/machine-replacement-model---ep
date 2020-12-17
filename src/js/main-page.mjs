@@ -429,15 +429,15 @@ function getSolutionTreeEl(tree, model) {
   }
 
   function getNodeValue(machineAge, decisionColumn) {
-    let nodeValue = null;
+    let index = -1;
 
     for (let k = 0; k < decisionColumn.length; k++) {
       if (decisionColumn[k].machineAge === machineAge) {
-        nodeValue = decisionColumn[k];
+        index = k;
         break;
       }
     }
-    return nodeValue;
+    return (index !== -1) ? decisionColumn[index] : null;
   }
 }
 
