@@ -194,7 +194,7 @@ class MainPage {
     const solution = {
       treeEl: getSolutionTreeEl(tree, model),
       stagesEl: getSolutionStagesEl(stages),
-      chainResultHtml: getResultChainsHtml(stages, this.initialAge)
+      resultChainsEl: getResultChainsEl(stages, this.initialAge)
     };
     this.#setSolutionToView(solution);
   }
@@ -206,7 +206,7 @@ class MainPage {
 
     solutionsTreeView.appendChild(solution.treeEl);
     stagesView.appendChild(solution.stagesEl);
-    chainResultView.innerHTML = solution.chainResultHtml;
+    chainResultView.appendChild( solution.resultChainsEl);
     document.getElementById('solutionPanel').classList.remove('gone');
   }
 
@@ -497,17 +497,14 @@ function getSolutionStagesEl(stages) {
   }
 }
 
-function getResultChainsHtml(stages, initialAge) {
+function getResultChainsEl(stages, initialAge) {
   const getRow = (i, t) => stages[i].find(stage => stage.t === t);
   const chains = [];
 
-  getDecision(0, initialAge, chains);
-  const chainsElement = getChainsEl(chains);
-  let html = chainsElement.innerHTML;
+  collectDecisionChains(0, initialAge, chains);
+  return getChainsEl(chains);
 
-  return html;
-
-  function getDecision(start, t, chains) {
+  function collectDecisionChains(start, t, chains) {
     if (start >= stages.length) {
       return;
     }
@@ -527,8 +524,8 @@ function getResultChainsHtml(stages, initialAge) {
         const newChainK = [];
         const newChainR = [];
 
-        getDecision(start + 1, age + 1, newChainK);
-        getDecision(start + 1, 1, newChainR);
+        collectDecisionChains(start + 1, age + 1, newChainK);
+        collectDecisionChains(start + 1, 1, newChainR);
         chains.push(
           {
             k: newChainK,
@@ -538,7 +535,7 @@ function getResultChainsHtml(stages, initialAge) {
         return;
     }
     chains.push(decision);
-    getDecision(start + 1, age, chains);
+    collectDecisionChains(start + 1, age, chains);
   }
 
   function getChainsEl(chains) {
@@ -548,7 +545,7 @@ function getResultChainsHtml(stages, initialAge) {
     return el;
 
     function getChainsParentElement() {
-      return document.querySelector('.chains-container');
+      return document.createElement('div');
     }
   }
 
