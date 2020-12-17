@@ -25,15 +25,17 @@ export function init() {
   page.init();
 }
 
-const chainValueK = 'K';
-const chainValueR = 'R';
-const chainValueKorR = 'K or R';
 const yearsNextButtonId = 'yearsSubmitButton';
 const solveButtonId = 'solveButton';
 const yearsInputId = 'yearsInput';
 const timeInputId = 'timeInput';
 const initialAgeInputId = 'initialAgeInput';
 const machinePriceInputId = 'machinePriceInput';
+const chainValue = Object.freeze({
+  KEEP: 'K',
+  REPLACE: 'R',
+  KEEP_OR_REPLACE: 'K or R'
+});
 
 class MainPage {
   #solver;
@@ -559,15 +561,15 @@ function getResultChainsEl(stages, initialAge) {
     let age = time;
 
     switch (decision) {
-      case chainValueK:
+      case chainValue.KEEP:
         age += 1;
         break;
 
-      case chainValueR:
+      case chainValue.REPLACE:
         age = 1;
         break;
 
-      case chainValueKorR:
+      case chainValue.KEEP_OR_REPLACE:
         const newChainK = [];
         const newChainR = [];
 
@@ -604,8 +606,8 @@ function getResultChainsEl(stages, initialAge) {
     const appendComposedChainRecursive = (parentEl, singleChainParentEl, chainItem) => {
       const newSingleChainEl = deepCopyOf(singleChainParentEl);
 
-      appendChainRecursive(parentEl, singleChainParentEl, chainValueK, chainItem.k);
-      appendChainRecursive(parentEl, newSingleChainEl, chainValueR, chainItem.r);
+      appendChainRecursive(parentEl, singleChainParentEl, chainValue.KEEP, chainItem.k);
+      appendChainRecursive(parentEl, newSingleChainEl, chainValue.REPLACE, chainItem.r);
     };
     let isSingleChainParentElDone = false;
 
