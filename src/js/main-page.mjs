@@ -27,6 +27,7 @@ export function init() {
 
 const chainValueK = 'K';
 const chainValueR = 'R';
+const chainValueKorR = 'K or R';
 const yearsNextButtonId = 'yearsSubmitButton';
 const solveButtonId = 'solveButton';
 const yearsInputId = 'yearsInput';
@@ -558,15 +559,15 @@ function getResultChainsEl(stages, initialAge) {
     let age = time;
 
     switch (decision) {
-      case 'K':
+      case chainValueK:
         age += 1;
         break;
 
-      case 'R':
+      case chainValueR:
         age = 1;
         break;
 
-      case 'K or R':
+      case chainValueKorR:
         const newChainK = [];
         const newChainR = [];
 
