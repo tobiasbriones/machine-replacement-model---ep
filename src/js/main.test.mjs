@@ -17,3 +17,6 @@
  * Machine Replacement Model.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import { machineReplacementTest } from './machine-replacement.unit.test.mjs';
+
+machineReplacementTest.run();

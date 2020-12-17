@@ -22,6 +22,7 @@ import {
   MachineReplacementModel,
   MachineReplacementSolver
 } from './machine-replacement.mjs';
+import { sampleData } from './machine-replacement.unit.test.mjs';
 
 export function init() {
   const page = new MainPage();
@@ -630,23 +631,4 @@ function getResultChainsEl(stages, initialAge) {
 
 function deepCopyOf(el) {
   return el.cloneNode(true);
-}
-
-function sampleData() {
-  const newRow = (income, operationCost, sellingRevenue) => {
-    return {
-      income: income,
-      operationCost: operationCost,
-      sellingRevenue: sellingRevenue
-    };
-  };
-  return [
-    newRow(20000, 200, -1),
-    newRow(19000, 600, 80000),
-    newRow(18500, 1200, 60000),
-    newRow(17200, 1500, 50000),
-    newRow(15500, 1700, 30000),
-    newRow(14000, 1800, 10000),
-    newRow(12200, 2200, 5000)
-  ];
 }
