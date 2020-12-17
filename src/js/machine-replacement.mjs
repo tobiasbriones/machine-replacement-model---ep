@@ -37,6 +37,8 @@ export class MachineReplacementModel {
     this.maxAge = maxAge;
     this.price = price;
     this.data = data;
+
+    validateModel(this);
   }
 }
 
@@ -203,4 +205,19 @@ class TreeNode {
     this.k = k;
     this.r = r;
   }
+}
+
+function validateModel(model) {
+  const { decisionYears, initialAge, maxAge, price } = model;
+  const validateNonNegative = (value, name) => {
+    if (value < 0) {
+      const msg = `${ name } is a non-negative integer: ${ value }`;
+      throw new Error(msg);
+    }
+  };
+
+  validateNonNegative(decisionYears, 'decisionYears');
+  validateNonNegative(initialAge, 'initialAge');
+  validateNonNegative(maxAge, 'maxAge');
+  validateNonNegative(price, 'price');
 }
