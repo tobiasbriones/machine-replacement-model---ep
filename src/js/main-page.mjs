@@ -17,7 +17,11 @@
  * Machine Replacement Model.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { MachineReplacementModel, MachineReplacementSolver } from './machine-replacement.mjs';
+import {
+  Decision,
+  MachineReplacementModel,
+  MachineReplacementSolver
+} from './machine-replacement.mjs';
 
 export function init() {
   const page = new MainPage();
@@ -31,11 +35,6 @@ const yearsInputId = 'yearsInput';
 const timeInputId = 'timeInput';
 const initialAgeInputId = 'initialAgeInput';
 const machinePriceInputId = 'machinePriceInput';
-const chainValue = Object.freeze({
-  KEEP: 'K',
-  REPLACE: 'R',
-  KEEP_OR_REPLACE: 'K or R'
-});
 
 class MainPage {
   #solver;
@@ -562,15 +561,15 @@ function getResultChainsEl(stages, initialAge) {
     let age = time;
 
     switch (decision) {
-      case chainValue.KEEP:
+      case Decision.KEEP:
         age += 1;
         break;
 
-      case chainValue.REPLACE:
+      case Decision.REPLACE:
         age = 1;
         break;
 
-      case chainValue.KEEP_OR_REPLACE:
+      case Decision.KEEP_OR_REPLACE:
         const newChainK = [];
         const newChainR = [];
 
@@ -609,8 +608,8 @@ function getResultChainsEl(stages, initialAge) {
     const appendComposedChainRecursive = (parentEl, singleChainParentEl, chainItem) => {
       const newSingleChainEl = deepCopyOf(singleChainParentEl);
 
-      appendChainRecursive(parentEl, singleChainParentEl, chainValue.KEEP, chainItem.k);
-      appendChainRecursive(parentEl, newSingleChainEl, chainValue.REPLACE, chainItem.r);
+      appendChainRecursive(parentEl, singleChainParentEl, Decision.KEEP, chainItem.k);
+      appendChainRecursive(parentEl, newSingleChainEl, Decision.REPLACE, chainItem.r);
     };
 
     for (const chainItem of chains) {

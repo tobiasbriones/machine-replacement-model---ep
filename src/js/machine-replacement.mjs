@@ -18,6 +18,11 @@
  */
 
 export const INITIAL_DECISION_YEAR = 1;
+export const Decision = Object.freeze({
+  KEEP: 'K',
+  REPLACE: 'R',
+  KEEP_OR_REPLACE: 'K or R'
+});
 
 export class MachineReplacementModel {
   constructor(
@@ -142,9 +147,9 @@ export class MachineReplacementSolver {
     };
     const getDecision = (k, r) => {
       if (hasToReplaceMachine(k)) {
-        return 'R';
+        return Decision.REPLACE;
       }
-      return (r < k) ? 'K' : ((k < r) ? 'R' : 'K or R');
+      return (r < k) ? Decision.KEEP : ((k < r) ? Decision.REPLACE : Decision.KEEP_OR_REPLACE);
     };
 
     for (let j = 0; j < values.length; j++) {
