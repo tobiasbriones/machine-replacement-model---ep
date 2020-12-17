@@ -34,12 +34,6 @@ const timeInputId = 'timeInput';
 const initialAgeInputId = 'initialAgeInput';
 const machinePriceInputId = 'machinePriceInput';
 
-/**
- * Definitions:
- *
- * - n := years
- * - t := time
- */
 class MainPage {
   #solver;
   #view;
@@ -110,14 +104,20 @@ class MainPage {
   }
 
   #onSolve() {
+    const validate = model => {
+      const isValid = model !== null;
+
+      if (!isValid) {
+        alert('Values are integer numbers');
+      }
+      return isValid;
+    };
     const model = this.#getModel();
     const data = this.#getData();
 
-    if (model == null) {
-      alert('Values are integer numbers');
-      return;
+    if (validate(model)) {
+      this.#solve(model, data);
     }
-    this.#solve(model, data);
   }
 
   #getModel() {
@@ -166,16 +166,19 @@ class MainPage {
   }
 
   #getInputValueAt(x, y) {
+    const validate = input => {
+      const isValid = !isNaN(input);
+
+      if (!isValid) {
+        const msg = 'Check your input. All the tabular inputs are integer numbers!';
+        alert(msg);
+      }
+      return isValid;
+    };
     const view = this.#view;
     const inputValue = view.querySelector(`#input_${ x }_${ y }`).value;
     const input = parseInt(inputValue);
-
-    if (isNaN(input)) {
-      const msg = 'Check your input. All the tabular inputs are integer numbers!';
-      alert(msg);
-      return null;
-    }
-    return input;
+    return validate(input) ? input : null;
   }
 
   #setFromYearsToTabularData() {
@@ -206,7 +209,7 @@ class MainPage {
 
     solutionsTreeView.appendChild(solution.treeEl);
     stagesView.appendChild(solution.stagesEl);
-    chainResultView.appendChild( solution.resultChainsEl);
+    chainResultView.appendChild(solution.resultChainsEl);
     document.getElementById('solutionPanel').classList.remove('gone');
   }
 
