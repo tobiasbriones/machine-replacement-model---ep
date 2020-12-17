@@ -22,24 +22,24 @@ export class MachineReplacementModel {
     decisionYears = 0,
     initialAge = 0,
     maxAge = 0,
-    price = 0
+    price = 0,
+    data = []
   ) {
     this.decisionYears = decisionYears;
     this.initialAge = initialAge;
     this.maxAge = maxAge;
     this.price = price;
+    this.data = data;
   }
 }
 
 export class MachineReplacementSolver {
   #model;
-  #data;
   #stages;
   #solutionsTree;
 
   constructor() {
     this.#model = new MachineReplacementModel();
-    this.#data = null;
     this.#solutionsTree = [];
     this.#stages = [];
   }
@@ -52,17 +52,16 @@ export class MachineReplacementSolver {
     return this.#solutionsTree;
   }
 
-  solve(model, _data) {
-    this.#init(model, _data);
+  solve(model) {
+    this.#init(model);
 
     // Decision tree
     this.#createDecisionTree();
     this.#solveStages();
   };
 
-  #init(model, data) {
+  #init(model) {
     this.#model = model;
-    this.#data = data;
     this.#stages = [];
     this.#solutionsTree = [];
     const { decisionYears } = model;
@@ -109,29 +108,33 @@ export class MachineReplacementSolver {
     const lastStage = nextStage == null;
     const getNextStageMaxByAge = age => nextStage.find(row => row.t === age).max;
     const getK = t => {
+      const data = this.#model.data;
+
       if (t === maxMachineAge) {
         return -1;
       }
       if (lastStage) {
-        return this.#data[t].income +
-          this.#data[t + 1].sellingRevenue -
-          this.#data[t].operationCost;
+        return data[t].income +
+          data[t + 1].sellingRevenue -
+          data[t].operationCost;
       }
       const nextMax = getNextStageMaxByAge(t + 1);
-      return this.#data[t].income - this.#data[t].operationCost + nextMax;
+      return data[t].income - data[t].operationCost + nextMax;
     };
     const getR = t => {
+      const data = this.#model.data;
+
       if (lastStage) {
-        return this.#data[0].income +
-          this.#data[t].sellingRevenue +
-          this.#data[1].sellingRevenue -
-          this.#data[0].operationCost -
+        return data[0].income +
+          data[t].sellingRevenue +
+          data[1].sellingRevenue -
+          data[0].operationCost -
           this.#model.price;
       }
       const nextMax = getNextStageMaxByAge(1);
-      return this.#data[0].income +
-        this.#data[t].sellingRevenue -
-        this.#data[0].operationCost -
+      return data[0].income +
+        data[t].sellingRevenue -
+        data[0].operationCost -
         this.#model.price +
         nextMax;
     };

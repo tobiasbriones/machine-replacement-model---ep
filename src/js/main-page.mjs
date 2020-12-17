@@ -116,10 +116,9 @@ class MainPage {
       return isValid;
     };
     const model = this.#getModel();
-    const data = this.#getData();
 
     if (validate(model)) {
-      this.#solve(model, data);
+      this.#solve(model);
     }
   }
 
@@ -128,6 +127,7 @@ class MainPage {
     const maxAge = this.maxAge;
     const initialAge = this.initialAge;
     const machinePrice = this.machinePrice;
+    const data = this.#getData();
     const containsNull = (...elements) => elements.find(e => e === null) === null;
     const isInputValid = () => {
       return !containsNull(
@@ -142,7 +142,8 @@ class MainPage {
         decisionYears,
         initialAge,
         maxAge,
-        machinePrice
+        machinePrice,
+        data
       ) :
       null;
   }
@@ -216,8 +217,8 @@ class MainPage {
     document.getElementById('solutionPanel').classList.remove('gone');
   }
 
-  #solve(model, data) {
-    this.#solver.solve(model, data);
+  #solve(model) {
+    this.#solver.solve(model);
     this.#setSolution();
   }
 
