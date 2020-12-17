@@ -17,6 +17,8 @@
  * Machine Replacement Model.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+export const INITIAL_DECISION_YEAR = 1;
+
 export class MachineReplacementModel {
   constructor(
     decisionYears = 0,
@@ -55,7 +57,6 @@ export class MachineReplacementSolver {
   solve(model) {
     this.#init(model);
 
-    // Decision tree
     this.#createDecisionTree();
     this.#solveStages();
   };
@@ -73,15 +74,15 @@ export class MachineReplacementSolver {
   }
 
   #createDecisionTree() {
-    // It starts from position 1
-    const initialNode = new TreeNode(this.#model.initialAge, 1);
+    const initialNode = new TreeNode(this.#model.initialAge, INITIAL_DECISION_YEAR);
+    const sortDecisionYearByAge = solutionsTree => {
+      solutionsTree.forEach(element => element.sort(
+        (a, b) => (a.machineAge > b.machineAge) ? 1 : -1)
+      );
+    };
 
-    this.#fillPath(initialNode, 1);
-
-    // Sort each decision year by age
-    this.#solutionsTree.forEach(element => element.sort(
-      (a, b) => (a.machineAge > b.machineAge) ? 1 : -1)
-    );
+    this.#fillPath(initialNode, INITIAL_DECISION_YEAR);
+    sortDecisionYearByAge(this.#solutionsTree);
   };
 
   #containsNode(position, compare) {
@@ -105,7 +106,8 @@ export class MachineReplacementSolver {
   #solveStage(stage, nextStage, i) {
     const maxMachineAge = this.#model.maxAge;
     const values = this.#solutionsTree[i];
-    const lastStage = nextStage == null;
+    const lastStage = nextStage === null;
+    const hasToReplaceMachine = k => k === -1;
     const getNextStageMaxByAge = age => nextStage.find(row => row.t === age).max;
     const getK = t => {
       const data = this.#model.data;
@@ -139,12 +141,12 @@ export class MachineReplacementSolver {
         nextMax;
     };
     const getDecision = (k, r) => {
-      // If k = -1 then the machine is old to replace
-      if (k === -1) {
+      if (hasToReplaceMachine(k)) {
         return 'R';
       }
       return (r < k) ? 'K' : ((k < r) ? 'R' : 'K or R');
     };
+
     for (let j = 0; j < values.length; j++) {
       const t = values[j].machineAge;
       const k = getK(t);
