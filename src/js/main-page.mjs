@@ -220,7 +220,7 @@ class MainPage {
 
   #generateInputTable(n, t) {
     const inputTable = this.#view.querySelector('#inputTable');
-    inputTable.innerHTML = getInputTableHtml(n, t);
+    inputTable.appendChild(getInputTableEl(t));
   }
 
   #generateDataTable(data) {
@@ -279,55 +279,69 @@ function sampleData() {
   ];
 }
 
-function getInputTableHtml(n, t) {
-  const getRowHtml = y => {
-    let rowHtml = '';
+function getInputTableEl(time) {
+  const el = document.createElement('table');
+  const tHeadEl = getTheadEl();
+  const tBodyEl = getTbodyEl(time);
 
+  el.classList.add('table');
+  el.appendChild(tHeadEl);
+  el.appendChild(tBodyEl);
+  return el;
+
+  function getTheadEl() {
+    const el = document.createElement('thead');
+    const trEl = document.createElement('tr');
+
+    trEl.appendChild(getThEl('Time t (years)'));
+    trEl.appendChild(getThEl('Income ($)'));
+    trEl.appendChild(getThEl('Operation cost ($)'));
+    trEl.appendChild(getThEl('Selling revenue ($)'));
+    el.appendChild(trEl);
+    return el;
+  }
+
+  function getThEl(text) {
+    const el = document.createElement('th');
+
+    el.setAttribute('scope', 'col');
+    el.innerText = text;
+    return el;
+  }
+
+  function getTbodyEl(t) {
+    const el = document.createElement('tbody');
+
+    for (let y = 0; y <= t; y++) {
+      const trEl = document.createElement('tr');
+      const thEl = document.createElement('th');
+
+      thEl.setAttribute('scope', 'row');
+      thEl.innerText = y.toString();
+      trEl.appendChild(thEl);
+      setRowEl(trEl, y);
+      el.appendChild(trEl);
+    }
+    return el;
+  }
+
+  function setRowEl(rowEl, y) {
     for (let x = 0; x < 3; x++) {
       const id = `input_${ x }_${ y }`;
-      rowHtml += `
-        <td>
-          <div class="form-group">
-              <input value="0" type="number" class="form-control" id="${ id }">
-          </div>
-        </td>
-      `;
+      const tdEl = document.createElement('td');
+      const divEl = document.createElement('div');
+      const inputEl = document.createElement('input');
+
+      divEl.classList.add('form-group');
+      inputEl.id = id;
+      inputEl.classList.add('form-control');
+      inputEl.value = '0px';
+      inputEl.type = 'number';
+      divEl.appendChild(inputEl);
+      tdEl.appendChild(divEl);
+      rowEl.appendChild(tdEl);
     }
-    return rowHtml;
-  };
-  let html = '';
-
-  html += `
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">
-            Time t (years)
-          </th>
-          <th scope="col">
-            Income ($)
-          </th>
-          <th scope="col">
-            Operation cost ($)
-          </th>
-          <th scope="col">
-            Selling revenue ($)
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-  `;
-
-  for (let y = 0; y <= t; y++) {
-    html += `
-      <tr>
-        <th scope="row">${ y }</th>
-    `;
-    html += getRowHtml(y);
-    html += `</tr>`;
   }
-  html += `</tbody></table>`;
-  return html;
 }
 
 function getSolutionTreeEl(tree, model) {
@@ -473,7 +487,7 @@ function getSolutionStagesEl(stages) {
   function getThEl(value) {
     const el = document.createElement('th');
 
-    el.attributes.scope = 'col';
+    el.setAttribute('scope', 'col');
     el.innerText = value;
     return el;
   }
@@ -482,7 +496,7 @@ function getSolutionStagesEl(stages) {
     const el = document.createElement('tr');
     const thEl = document.createElement('th');
 
-    thEl.attributes.scope = 'row';
+    thEl.setAttribute('scope', 'row');
     thEl.innerText = row.t.toString();
     el.appendChild(thEl);
     el.appendChild(getTdEl(row.k));
