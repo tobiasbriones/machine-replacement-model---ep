@@ -22,7 +22,7 @@ import {
   MachineReplacementModel,
   MachineReplacementSolver
 } from './machine-replacement.mjs';
-import { sampleData } from './machine-replacement.unit.test.mjs';
+import { getSampleData } from './machine-replacement.unit.test.mjs';
 
 export function init() {
   const page = new MainPage();
@@ -186,7 +186,7 @@ class MainPage {
   }
 
   #setFromYearsToTabularData() {
-    const data = sampleData();
+    const data = getSampleData();
     const solveButton = this.#getViewById(solveButtonId);
 
     this.#generateInputTable(this.decisionYears, this.time);

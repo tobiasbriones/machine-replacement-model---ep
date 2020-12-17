@@ -17,35 +17,12 @@
  * Machine Replacement Model.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { assert, it } from './tools/test.mjs';
+import { assert, expectToThrowError, it } from './tools/test.mjs';
 import { MachineReplacementModel } from './machine-replacement.mjs';
 
-export const machineReplacementTest = {
-  run() {
-    it('creates model', () => {
-      const decisionYears = 4;
-      const initialAge = 3;
-      const maxAge = 6;
-      const price = 100_000;
-      const data = sampleData();
-      const actual = new MachineReplacementModel(
-        decisionYears,
-        initialAge,
-        maxAge,
-        price,
-        data
-      );
+export const machineReplacementTest = { run };
 
-      assert(actual.decisionYears === decisionYears);
-      assert(actual.initialAge === initialAge);
-      assert(actual.maxAge === maxAge);
-      assert(actual.price === price);
-      assert(actual.data === data);
-    });
-  }
-};
-
-export function sampleData() {
+export function getSampleData() {
   const newRow = (income, operationCost, sellingRevenue) => {
     return {
       income: income,
@@ -62,4 +39,70 @@ export function sampleData() {
     newRow(14000, 1800, 10000),
     newRow(12200, 2200, 5000)
   ];
+}
+
+function run() {
+  testModel();
+}
+
+function testModel() {
+  const sampleData = getSampleData();
+
+  it('creates model', () => {
+    const decisionYears = 4;
+    const initialAge = 3;
+    const maxAge = 6;
+    const price = 100_000;
+    const data = sampleData;
+    const actual = new MachineReplacementModel(
+      decisionYears,
+      initialAge,
+      maxAge,
+      price,
+      data
+    );
+
+    assert(actual.decisionYears === decisionYears);
+    assert(actual.initialAge === initialAge);
+    assert(actual.maxAge === maxAge);
+    assert(actual.price === price);
+    assert(actual.data === data);
+  });
+
+  it('checks model validation', () => {
+    const decisionYears = 4;
+    const initialAge = 3;
+    const maxAge = 6;
+    const price = 100_000;
+    const data = sampleData;
+
+    expectToThrowError(() => new MachineReplacementModel(
+      -1,
+      initialAge,
+      maxAge,
+      price,
+      data
+    ));
+    expectToThrowError(() => new MachineReplacementModel(
+      decisionYears,
+      -1,
+      maxAge,
+      price,
+      data
+    ));
+    expectToThrowError(() => new MachineReplacementModel(
+      decisionYears,
+      initialAge,
+      -1,
+      price,
+      data
+    ));
+    expectToThrowError(() => new MachineReplacementModel(
+      decisionYears,
+      initialAge,
+      maxAge,
+      -1,
+      data
+    ));
+  });
 }
