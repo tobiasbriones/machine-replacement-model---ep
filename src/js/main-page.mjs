@@ -107,6 +107,7 @@ class MainPage {
   }
 
   #onSolve() {
+    const model = this.#getModel();
     const validate = model => {
       const isValid = model !== null;
 
@@ -115,7 +116,6 @@ class MainPage {
       }
       return isValid;
     };
-    const model = this.#getModel();
 
     if (validate(model)) {
       this.#solve(model);
@@ -149,6 +149,8 @@ class MainPage {
   }
 
   #getData() {
+    const data = [];
+    const maxAge = this.maxAge;
     const newRow = (income, operationCost, sellingRevenue) => {
       return {
         income: income,
@@ -156,8 +158,6 @@ class MainPage {
         sellingRevenue: sellingRevenue
       };
     };
-    const data = [];
-    const maxAge = this.maxAge;
 
     for (let t = 0; t <= maxAge; t++) {
       const income = this.#getInputValueAt(0, t);
@@ -170,6 +170,9 @@ class MainPage {
   }
 
   #getInputValueAt(x, y) {
+    const view = this.#view;
+    const inputValue = view.querySelector(`#input_${ x }_${ y }`).value;
+    const input = parseInt(inputValue);
     const validate = input => {
       const isValid = !isNaN(input);
 
@@ -179,9 +182,6 @@ class MainPage {
       }
       return isValid;
     };
-    const view = this.#view;
-    const inputValue = view.querySelector(`#input_${ x }_${ y }`).value;
-    const input = parseInt(inputValue);
     return validate(input) ? input : null;
   }
 
@@ -228,13 +228,13 @@ class MainPage {
   }
 
   #generateDataTable(data) {
+    const maxAge = this.maxAge;
     const addRow = (t, row) => {
       const view = this.#view;
       view.querySelector(`#input_${ 0 }_${ t }`).value = row.income;
       view.querySelector(`#input_${ 1 }_${ t }`).value = row.operationCost;
       view.querySelector(`#input_${ 2 }_${ t }`).value = row.sellingRevenue;
     };
-    const maxAge = this.maxAge;
 
     for (let t = 0; t < data.length; t++) {
       if (t > maxAge) {
@@ -595,6 +595,8 @@ function getResultChainsEl(stages, initialAge) {
   }
 
   function appendSingleChainElements(parentEl, singleChainParentEl, chains) {
+    let isSingleChainParentElDone = false;
+
     const isChainValue = chainItem => typeof chainItem === 'string';
     const getChainValueEl = chainValue => getSpanEl(chainValue);
     const appendSingleChainFinalChild = el => el.appendChild(getSingleChainFinalChild());
@@ -610,7 +612,6 @@ function getResultChainsEl(stages, initialAge) {
       appendChainRecursive(parentEl, singleChainParentEl, chainValue.KEEP, chainItem.k);
       appendChainRecursive(parentEl, newSingleChainEl, chainValue.REPLACE, chainItem.r);
     };
-    let isSingleChainParentElDone = false;
 
     for (const chainItem of chains) {
       if (isChainValue(chainItem)) {
