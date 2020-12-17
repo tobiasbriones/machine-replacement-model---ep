@@ -516,7 +516,7 @@ function getResultChainsEl(stages, initialAge) {
   return (() => {
     const chains = [];
 
-    collectDecisionChains(0, initialAge, chains);
+    collectDecisionChains(chains, 0, initialAge);
     return getChainsEl(chains);
   })();
 
@@ -550,12 +550,12 @@ function getResultChainsEl(stages, initialAge) {
     return el;
   }
 
-  function collectDecisionChains(start, t, chains) {
+  function collectDecisionChains(chains, start, time) {
     if (start >= stages.length) {
       return;
     }
-    const decision = getRow(start, t).decision;
-    let age = t;
+    const decision = getRow(start, time).decision;
+    let age = time;
 
     switch (decision) {
       case 'K':
@@ -570,8 +570,8 @@ function getResultChainsEl(stages, initialAge) {
         const newChainK = [];
         const newChainR = [];
 
-        collectDecisionChains(start + 1, age + 1, newChainK);
-        collectDecisionChains(start + 1, 1, newChainR);
+        collectDecisionChains(newChainK, start + 1, age + 1);
+        collectDecisionChains(newChainR, start + 1, 1);
         chains.push(
           {
             k: newChainK,
@@ -581,7 +581,7 @@ function getResultChainsEl(stages, initialAge) {
         return;
     }
     chains.push(decision);
-    collectDecisionChains(start + 1, age, chains);
+    collectDecisionChains(chains, start + 1, age);
   }
 
   function collectSingleChainElements(parentEl, chains) {
