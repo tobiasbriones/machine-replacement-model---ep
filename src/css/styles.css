@@ -138,6 +138,10 @@ footer a:hover {
   margin-bottom: 32px;
 }
 
+#inputTable {
+  overflow: auto;
+}
+
 #solveButton {
   width: 80%;
   margin: auto;
@@ -201,6 +205,10 @@ footer a:hover {
   width: 128px;
   left: -32px;
   text-align: center;
+}
+
+.stages > div {
+  overflow: auto;
 }
 
 .stages > div > p {
