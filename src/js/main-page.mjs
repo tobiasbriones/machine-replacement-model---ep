@@ -23,6 +23,7 @@ import {
   MachineReplacementSolver
 } from './machine-replacement.mjs';
 import { getSampleData } from './machine-replacement.unit.test.mjs';
+import { clear, deepCopyOf, getSpanEl } from './tools/gui-utils.mjs';
 
 const yearsNextButtonId = 'yearsSubmitButton';
 const solveButtonId = 'solveButton';
@@ -271,13 +272,6 @@ export class MainPage {
       call: (fn) => viewEl.addEventListener(e, () => fn.call(this))
     };
   }
-}
-
-function getSpanEl(text) {
-  const el = document.createElement('span');
-
-  el.innerText = text;
-  return el;
 }
 
 function getInputTableEl(time) {
@@ -635,15 +629,5 @@ function getResultChainsEl(stages, initialAge) {
       appendSingleChainFinalChild(singleChainParentEl);
       appendSingleChain(parentEl, singleChainParentEl);
     }
-  }
-}
-
-function deepCopyOf(el) {
-  return el.cloneNode(true);
-}
-
-function clear(el) {
-  while (el.lastElementChild) {
-    el.removeChild(el.lastElementChild);
   }
 }
