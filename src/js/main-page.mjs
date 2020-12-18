@@ -34,10 +34,17 @@ const machinePriceInputId = 'machinePriceInput';
 export class MainPage {
   #solver;
   #view;
+  #solutionsTreeView;
+  #stagesView;
+  #chainResultView;
 
   constructor() {
     this.#solver = new MachineReplacementSolver();
     this.#view = null;
+    this.#solutionsTreeView = null;
+    this.#solutionsTreeView = null;
+    this.#stagesView = null;
+    this.#chainResultView = null;
   }
 
   get decisionYears() {
@@ -62,6 +69,9 @@ export class MainPage {
 
   init() {
     this.#view = document.body;
+    this.#solutionsTreeView = this.#view.querySelector('.solutions-tree');
+    this.#stagesView = this.#view.querySelector('.stages');
+    this.#chainResultView = this.#view.querySelector('.chains-container');
 
     this.#bindEvents();
   }
@@ -201,13 +211,10 @@ export class MainPage {
   }
 
   #setSolutionToView(solution) {
-    const solutionsTreeView = this.#view.querySelector('.solutions-tree');
-    const stagesView = this.#view.querySelector('.stages');
-    const chainResultView = this.#view.querySelector('.chains-container');
-
-    solutionsTreeView.appendChild(solution.treeEl);
-    stagesView.appendChild(solution.stagesEl);
-    chainResultView.appendChild(solution.resultChainsEl);
+    this.#clearSolutionView();
+    this.#solutionsTreeView.appendChild(solution.treeEl);
+    this.#stagesView.appendChild(solution.stagesEl);
+    this.#chainResultView.appendChild(solution.resultChainsEl);
     document.getElementById('solutionPanel').classList.remove('gone');
   }
 
@@ -244,6 +251,12 @@ export class MainPage {
     const inputValue = this.#getViewById(inputId).value;
     const value = parseInt(inputValue);
     return isNaN(value) ? null : value;
+  }
+
+  #clearSolutionView() {
+    clear(this.#solutionsTreeView);
+    clear(this.#stagesView);
+    clear(this.#chainResultView);
   }
 
   #getViewById(id) {
@@ -625,4 +638,10 @@ function getResultChainsEl(stages, initialAge) {
 
 function deepCopyOf(el) {
   return el.cloneNode(true);
+}
+
+function clear(el) {
+  while (el.lastElementChild) {
+    el.removeChild(el.lastElementChild);
+  }
 }
