@@ -121,6 +121,20 @@ function testModel() {
       data
     ));
   });
+
+  it('checks default model', () => {
+    const decisionYear = 0;
+    const initialAge = 0;
+    const maxAge = 0;
+    const price = 0;
+    const actual = new MachineReplacementModel();
+
+    assert(actual.decisionYears === decisionYear);
+    assert(actual.initialAge === initialAge);
+    assert(actual.maxAge === maxAge);
+    assert(actual.price === price);
+    assert(actual.data.length === 0);
+  });
 }
 
 function testSolver() {
