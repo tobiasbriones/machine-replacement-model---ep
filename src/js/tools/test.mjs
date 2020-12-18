@@ -1,5 +1,7 @@
 /*
- * Copyright (C) 2020 Tobias Briones. All rights reserved.
+ * Copyright (c) 2020 Tobias Briones. All rights reserved.
+ *
+ * SPDX-License-Identifier: GPL-3.0-or-later
  *
  * This file is part of Example Project: Machine Replacement Model.
  *

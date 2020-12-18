@@ -13,6 +13,6 @@ Operations research model for machine maintenance/replacement. This app was a sa
 ## License
 Example Project: Machine Replacement Model
 
-Copyright © 2019 Tobias Briones. All rights reserved.
+Copyright © 2019-2020 Tobias Briones. All rights reserved.
 
-This software is licensed under the [GNU General Public License v3.0 License](https://github.com/TobiasBriones/example.math.or.model.web.machine-replacement/blob/master/LICENSE).
+This software is licensed under the [GNU General Public License v3.0 or later License](https://github.com/TobiasBriones/example.math.or.model.web.machine-replacement/blob/master/LICENSE).
