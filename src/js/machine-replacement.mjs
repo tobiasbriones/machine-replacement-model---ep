@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Tobias Briones. All rights reserved.
+ * Copyright (C) 2019-2020 Tobias Briones. All rights reserved.
  *
  * This file is part of Example Project: Machine Replacement Model.
  *
@@ -25,6 +25,12 @@ export const Decision = Object.freeze({
 });
 
 export class MachineReplacementModel {
+  #decisionYears;
+  #initialAge;
+  #maxAge;
+  #price;
+  #data;
+
   constructor(
     decisionYears = 0,
     initialAge = 0,
@@ -32,13 +38,33 @@ export class MachineReplacementModel {
     price = 0,
     data = []
   ) {
-    this.decisionYears = decisionYears;
-    this.initialAge = initialAge;
-    this.maxAge = maxAge;
-    this.price = price;
-    this.data = data;
+    this.#decisionYears = decisionYears;
+    this.#initialAge = initialAge;
+    this.#maxAge = maxAge;
+    this.#price = price;
+    this.#data = data;
 
     validateModel(this);
+  }
+
+  get decisionYears() {
+    return this.#decisionYears;
+  }
+
+  get initialAge() {
+    return this.#initialAge;
+  }
+
+  get maxAge() {
+    return this.#maxAge;
+  }
+
+  get price() {
+    return this.#price;
+  }
+
+  get data() {
+    return this.#data;
   }
 }
 
