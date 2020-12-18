@@ -18,9 +18,24 @@
  */
 
 import { assert, expectToThrowError, it } from './tools/test.mjs';
-import { MachineReplacementModel } from './machine-replacement.mjs';
+import { MachineReplacementModel, MachineReplacementSolver } from './machine-replacement.mjs';
 
 export const machineReplacementTest = { run };
+
+export function getSampleModel() {
+  const decisionYears = 4;
+  const initialAge = 3;
+  const maxAge = 6;
+  const price = 100_000;
+  const data = getSampleData();
+  return new MachineReplacementModel(
+    decisionYears,
+    initialAge,
+    maxAge,
+    price,
+    data
+  );
+}
 
 export function getSampleData() {
   const newRow = (income, operationCost, sellingRevenue) => {
@@ -43,6 +58,7 @@ export function getSampleData() {
 
 function run() {
   testModel();
+  testSolver();
 }
 
 function testModel() {
@@ -105,4 +121,279 @@ function testModel() {
       data
     ));
   });
+}
+
+function testSolver() {
+  const solver = new MachineReplacementSolver();
+
+  it('solves sample model', () => {
+    const model = getSampleModel();
+    const expectedTree = getSampleModelSolutionTree();
+    const expectedStages = getSampleModelSolutionStages();
+
+    solver.solve(model);
+
+    assert(JSON.stringify(solver.solutionsTree) === JSON.stringify(expectedTree));
+    assert(JSON.stringify(solver.stages) === JSON.stringify(expectedStages));
+  });
+}
+
+// --------------------------------------  SAMPLE SOLUTION  ------------------------------------- //
+
+// For an actual use case, these sample models and their corresponding solutions
+// might be stored in a file so they can be tested by opening and reading the
+// file instead of placing the whole solutions in here
+
+function getSampleModelSolutionTree() {
+  return [
+    [
+      {
+        'machineAge': 3,
+        'decisionYear': 1,
+        'k': {
+          'machineAge': 4,
+          'decisionYear': 2,
+          'k': {
+            'machineAge': 5,
+            'decisionYear': 3,
+            'k': {
+              'machineAge': 6,
+              'decisionYear': 4,
+              'k': null,
+              'r': { 'machineAge': 1, 'decisionYear': 5, 'k': null, 'r': null }
+            },
+            'r': {
+              'machineAge': 1,
+              'decisionYear': 4,
+              'k': { 'machineAge': 2, 'decisionYear': 5, 'k': null, 'r': null },
+              'r': { 'machineAge': 1, 'decisionYear': 5, 'k': null, 'r': null }
+            }
+          },
+          'r': {
+            'machineAge': 1,
+            'decisionYear': 3,
+            'k': {
+              'machineAge': 2,
+              'decisionYear': 4,
+              'k': { 'machineAge': 3, 'decisionYear': 5, 'k': null, 'r': null },
+              'r': { 'machineAge': 1, 'decisionYear': 5, 'k': null, 'r': null }
+            },
+            'r': {
+              'machineAge': 1,
+              'decisionYear': 4,
+              'k': { 'machineAge': 2, 'decisionYear': 5, 'k': null, 'r': null },
+              'r': { 'machineAge': 1, 'decisionYear': 5, 'k': null, 'r': null }
+            }
+          }
+        },
+        'r': {
+          'machineAge': 1,
+          'decisionYear': 2,
+          'k': {
+            'machineAge': 2,
+            'decisionYear': 3,
+            'k': {
+              'machineAge': 3,
+              'decisionYear': 4,
+              'k': { 'machineAge': 4, 'decisionYear': 5, 'k': null, 'r': null },
+              'r': { 'machineAge': 1, 'decisionYear': 5, 'k': null, 'r': null }
+            },
+            'r': {
+              'machineAge': 1,
+              'decisionYear': 4,
+              'k': { 'machineAge': 2, 'decisionYear': 5, 'k': null, 'r': null },
+              'r': { 'machineAge': 1, 'decisionYear': 5, 'k': null, 'r': null }
+            }
+          },
+          'r': {
+            'machineAge': 1,
+            'decisionYear': 3,
+            'k': {
+              'machineAge': 2,
+              'decisionYear': 4,
+              'k': { 'machineAge': 3, 'decisionYear': 5, 'k': null, 'r': null },
+              'r': { 'machineAge': 1, 'decisionYear': 5, 'k': null, 'r': null }
+            },
+            'r': {
+              'machineAge': 1,
+              'decisionYear': 4,
+              'k': { 'machineAge': 2, 'decisionYear': 5, 'k': null, 'r': null },
+              'r': { 'machineAge': 1, 'decisionYear': 5, 'k': null, 'r': null }
+            }
+          }
+        }
+      }
+    ],
+    [
+      {
+        'machineAge': 1,
+        'decisionYear': 2,
+        'k': {
+          'machineAge': 2,
+          'decisionYear': 3,
+          'k': {
+            'machineAge': 3,
+            'decisionYear': 4,
+            'k': { 'machineAge': 4, 'decisionYear': 5, 'k': null, 'r': null },
+            'r': { 'machineAge': 1, 'decisionYear': 5, 'k': null, 'r': null }
+          },
+          'r': {
+            'machineAge': 1,
+            'decisionYear': 4,
+            'k': { 'machineAge': 2, 'decisionYear': 5, 'k': null, 'r': null },
+            'r': { 'machineAge': 1, 'decisionYear': 5, 'k': null, 'r': null }
+          }
+        },
+        'r': {
+          'machineAge': 1,
+          'decisionYear': 3,
+          'k': {
+            'machineAge': 2,
+            'decisionYear': 4,
+            'k': { 'machineAge': 3, 'decisionYear': 5, 'k': null, 'r': null },
+            'r': { 'machineAge': 1, 'decisionYear': 5, 'k': null, 'r': null }
+          },
+          'r': {
+            'machineAge': 1,
+            'decisionYear': 4,
+            'k': { 'machineAge': 2, 'decisionYear': 5, 'k': null, 'r': null },
+            'r': { 'machineAge': 1, 'decisionYear': 5, 'k': null, 'r': null }
+          }
+        }
+      },
+      {
+        'machineAge': 4,
+        'decisionYear': 2,
+        'k': {
+          'machineAge': 5,
+          'decisionYear': 3,
+          'k': {
+            'machineAge': 6,
+            'decisionYear': 4,
+            'k': null,
+            'r': { 'machineAge': 1, 'decisionYear': 5, 'k': null, 'r': null }
+          },
+          'r': {
+            'machineAge': 1,
+            'decisionYear': 4,
+            'k': { 'machineAge': 2, 'decisionYear': 5, 'k': null, 'r': null },
+            'r': { 'machineAge': 1, 'decisionYear': 5, 'k': null, 'r': null }
+          }
+        },
+        'r': {
+          'machineAge': 1,
+          'decisionYear': 3,
+          'k': {
+            'machineAge': 2,
+            'decisionYear': 4,
+            'k': { 'machineAge': 3, 'decisionYear': 5, 'k': null, 'r': null },
+            'r': { 'machineAge': 1, 'decisionYear': 5, 'k': null, 'r': null }
+          },
+          'r': {
+            'machineAge': 1,
+            'decisionYear': 4,
+            'k': { 'machineAge': 2, 'decisionYear': 5, 'k': null, 'r': null },
+            'r': { 'machineAge': 1, 'decisionYear': 5, 'k': null, 'r': null }
+          }
+        }
+      }
+    ],
+    [
+      {
+        'machineAge': 1,
+        'decisionYear': 3,
+        'k': {
+          'machineAge': 2,
+          'decisionYear': 4,
+          'k': { 'machineAge': 3, 'decisionYear': 5, 'k': null, 'r': null },
+          'r': { 'machineAge': 1, 'decisionYear': 5, 'k': null, 'r': null }
+        },
+        'r': {
+          'machineAge': 1,
+          'decisionYear': 4,
+          'k': { 'machineAge': 2, 'decisionYear': 5, 'k': null, 'r': null },
+          'r': { 'machineAge': 1, 'decisionYear': 5, 'k': null, 'r': null }
+        }
+      },
+      {
+        'machineAge': 2,
+        'decisionYear': 3,
+        'k': {
+          'machineAge': 3,
+          'decisionYear': 4,
+          'k': { 'machineAge': 4, 'decisionYear': 5, 'k': null, 'r': null },
+          'r': { 'machineAge': 1, 'decisionYear': 5, 'k': null, 'r': null }
+        },
+        'r': {
+          'machineAge': 1,
+          'decisionYear': 4,
+          'k': { 'machineAge': 2, 'decisionYear': 5, 'k': null, 'r': null },
+          'r': { 'machineAge': 1, 'decisionYear': 5, 'k': null, 'r': null }
+        }
+      },
+      {
+        'machineAge': 5,
+        'decisionYear': 3,
+        'k': {
+          'machineAge': 6,
+          'decisionYear': 4,
+          'k': null,
+          'r': { 'machineAge': 1, 'decisionYear': 5, 'k': null, 'r': null }
+        },
+        'r': {
+          'machineAge': 1,
+          'decisionYear': 4,
+          'k': { 'machineAge': 2, 'decisionYear': 5, 'k': null, 'r': null },
+          'r': { 'machineAge': 1, 'decisionYear': 5, 'k': null, 'r': null }
+        }
+      }
+    ],
+    [
+      {
+        'machineAge': 1,
+        'decisionYear': 4,
+        'k': { 'machineAge': 2, 'decisionYear': 5, 'k': null, 'r': null },
+        'r': { 'machineAge': 1, 'decisionYear': 5, 'k': null, 'r': null }
+      },
+      {
+        'machineAge': 2,
+        'decisionYear': 4,
+        'k': { 'machineAge': 3, 'decisionYear': 5, 'k': null, 'r': null },
+        'r': { 'machineAge': 1, 'decisionYear': 5, 'k': null, 'r': null }
+      },
+      {
+        'machineAge': 3,
+        'decisionYear': 4,
+        'k': { 'machineAge': 4, 'decisionYear': 5, 'k': null, 'r': null },
+        'r': { 'machineAge': 1, 'decisionYear': 5, 'k': null, 'r': null }
+      },
+      {
+        'machineAge': 6,
+        'decisionYear': 4,
+        'k': null,
+        'r': { 'machineAge': 1, 'decisionYear': 5, 'k': null, 'r': null }
+      }
+    ]
+  ];
+}
+
+function getSampleModelSolutionStages() {
+  return [
+    [{ 't': 3, 'k': 51200, 'r': 55300, 'max': 55300, 'decision': 'R' }],
+    [
+      { 't': 1, 'k': 85500, 'r': 85500, 'max': 85500, 'decision': 'K or R' },
+      { 't': 4, 'k': 30800, 'r': 35500, 'max': 35500, 'decision': 'R' }
+    ],
+    [
+      { 't': 1, 'k': 85700, 'r': 79600, 'max': 85700, 'decision': 'K' },
+      { 't': 2, 'k': 67100, 'r': 59600, 'max': 67100, 'decision': 'K' },
+      { 't': 5, 'k': 17000, 'r': 9600, 'max': 17000, 'decision': 'K' }
+    ],
+    [
+      { 't': 1, 'k': 78400, 'r': 79800, 'max': 79800, 'decision': 'R' },
+      { 't': 2, 'k': 67300, 'r': 59800, 'max': 67300, 'decision': 'K' },
+      { 't': 3, 'k': 45700, 'r': 49800, 'max': 49800, 'decision': 'R' },
+      { 't': 6, 'k': -1, 'r': 4800, 'max': 4800, 'decision': 'R' }
+    ]
+  ];
 }
