@@ -24,12 +24,6 @@ import {
 } from './machine-replacement.mjs';
 import { getSampleData } from './machine-replacement.unit.test.mjs';
 
-export function init() {
-  const page = new MainPage();
-
-  page.init();
-}
-
 const yearsNextButtonId = 'yearsSubmitButton';
 const solveButtonId = 'solveButton';
 const yearsInputId = 'yearsInput';
@@ -37,7 +31,7 @@ const timeInputId = 'timeInput';
 const initialAgeInputId = 'initialAgeInput';
 const machinePriceInputId = 'machinePriceInput';
 
-class MainPage {
+export class MainPage {
   #solver;
   #view;
 

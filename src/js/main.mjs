@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Tobias Briones. All rights reserved.
+ * Copyright (C) 2019-2020 Tobias Briones. All rights reserved.
  *
  * This file is part of Example Project: Machine Replacement Model.
  *
@@ -17,6 +17,8 @@
  * Machine Replacement Model.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { init } from './main-page.mjs';
+import { MainPage } from './main-page.mjs';
 
-init();
+const page = new MainPage();
+
+page.init();
