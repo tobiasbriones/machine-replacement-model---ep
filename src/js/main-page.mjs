@@ -460,23 +460,23 @@ function getSolutionStagesEl(stages) {
 
   function getTableEL(stage) {
     const el = document.createElement('table');
-    const thead = document.createElement('thead');
-    const tr = document.createElement('tr');
-    const tbody = document.createElement('tbody');
+    const theadEl = document.createElement('thead');
+    const trEl = document.createElement('tr');
+    const tbodyEl = document.createElement('tbody');
 
     el.classList.add('table');
-    tr.appendChild(getThEl('t'));
-    tr.appendChild(getThEl('K'));
-    tr.appendChild(getThEl('R'));
-    tr.appendChild(getThEl('max'));
-    tr.appendChild(getThEl('Decision'));
-    thead.appendChild(tr);
-    el.appendChild(thead);
+    trEl.appendChild(getThEl('t'));
+    trEl.appendChild(getThEl('K'));
+    trEl.appendChild(getThEl('R'));
+    trEl.appendChild(getThEl('max'));
+    trEl.appendChild(getThEl('Decision'));
+    theadEl.appendChild(trEl);
+    el.appendChild(theadEl);
 
     for (const row of stage) {
-      tbody.appendChild(getTrEl(row));
+      tbodyEl.appendChild(getTrEl(row));
     }
-    el.appendChild(tbody);
+    el.appendChild(tbodyEl);
     return el;
   }
 
