@@ -193,9 +193,16 @@ export class MainPage {
     const data = getSampleData();
     const solveButton = this.#getViewById(solveButtonId);
 
-    this.#generateInputTable(this.decisionYears, this.time);
+    this.#setInputTableEl(this.decisionYears, this.time);
     this.#generateDataTable(data);
     solveButton.classList.remove('invisible');
+  }
+
+  #setInputTableEl(n, t) {
+    const inputTable = this.#view.querySelector('#inputTable');
+
+    clear(inputTable);
+    inputTable.appendChild(getInputTableEl(t));
   }
 
   #setSolution() {
@@ -221,11 +228,6 @@ export class MainPage {
   #solve(model) {
     this.#solver.solve(model);
     this.#setSolution();
-  }
-
-  #generateInputTable(n, t) {
-    const inputTable = this.#view.querySelector('#inputTable');
-    inputTable.appendChild(getInputTableEl(t));
   }
 
   #generateDataTable(data) {
