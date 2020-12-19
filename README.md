@@ -12,6 +12,9 @@ Example project for solving Operations Research machine maintenance/replacement 
 - In the solutions tree you have a pair (K, R) that indicates an imaginary arrow if you take either Keep (**K**) or 
   Replace (**R**) from that node, e.g. in the screenshot example if you are in the decision year #2 and your machine has 4 years, if you choose **K** then the arrow goes from that node to the node with the value of 5 in the next decision year, if you choose **R** then the arrow goes to the node with the value of 1 in the next decision year.
 
+- In the solutions tree, the last decision year on the abscissa does not appear because I considered it was not necessary to plot it for this project.
+
+- By default, the example found in Taha's book from the machine replacement section comes set with this app.
 
 ## Screenshots
 
