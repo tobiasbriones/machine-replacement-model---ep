@@ -24,7 +24,7 @@ import {
   MachineReplacementModel,
   MachineReplacementSolver
 } from './machine-replacement.mjs';
-import { getSampleData } from './machine-replacement.unit.test.mjs';
+import { getSampleModel } from './machine-replacement.unit.test.mjs';
 import { clear, deepCopyOf, getSpanEl } from './tools/gui-utils.mjs';
 
 const yearsNextButtonId = 'yearsSubmitButton';
@@ -36,6 +36,7 @@ const machinePriceInputId = 'machinePriceInput';
 
 export class MainPage {
   #solver;
+  #sampleModel;
   #view;
   #solutionsTreeView;
   #stagesView;
@@ -43,6 +44,7 @@ export class MainPage {
 
   constructor() {
     this.#solver = new MachineReplacementSolver();
+    this.#sampleModel = getSampleModel();
     this.#view = null;
     this.#solutionsTreeView = null;
     this.#solutionsTreeView = null;
@@ -77,6 +79,7 @@ export class MainPage {
     this.#chainResultView = this.#view.querySelector('.chains-container');
 
     this.#bindEvents();
+    this.#setSampleModelInitialValues();
   }
 
   #bindEvents() {
@@ -196,11 +199,10 @@ export class MainPage {
   }
 
   #setFromYearsToTabularData() {
-    const data = getSampleData();
     const solveButton = this.#getViewById(solveButtonId);
 
     this.#setInputTableEl(this.decisionYears, this.time);
-    this.#generateDataTable(data);
+    this.#setSampleModelData();
     solveButton.classList.remove('invisible');
   }
 
@@ -229,6 +231,19 @@ export class MainPage {
     this.#stagesView.appendChild(solution.stagesEl);
     this.#chainResultView.appendChild(solution.resultChainsEl);
     document.getElementById('solutionPanel').classList.remove('gone');
+  }
+
+  #setSampleModelInitialValues() {
+    this.#getViewById(yearsInputId).value = this.#sampleModel.decisionYears;
+    this.#getViewById(timeInputId).value = this.#sampleModel.maxAge;
+    this.#getViewById(initialAgeInputId).value = this.#sampleModel.initialAge;
+    this.#getViewById(machinePriceInputId).value = this.#sampleModel.price;
+  }
+
+  #setSampleModelData() {
+    const data = this.#sampleModel.data;
+
+    this.#generateDataTable(data);
   }
 
   #solve(model) {
