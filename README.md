@@ -14,7 +14,7 @@ Example project for solving Operations Research machine maintenance/replacement 
 
 - In the solutions tree, the last decision year on the abscissa does not appear because I considered it was not necessary to plot it for this project.
 
-- By default, the example found in Taha's book from the machine replacement section comes set with this app. Moreover, you might find that the example in the book has an error in the decision for the stage 3 with t = 5!.
+- By default, the example found in Taha's book from the machine replacement section comes set with this app. Moreover, you might find that the example in the book has an error in the decision for the stage 3 with t = 5!
 
 ## Screenshots
 
