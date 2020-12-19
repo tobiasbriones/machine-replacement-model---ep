@@ -170,7 +170,6 @@ export class MachineReplacementSolver {
     const maxMachineAge = this.#model.maxAge;
     const values = this.#solutionsTree[i];
     const lastStage = nextStage === null;
-    const hasToReplaceMachine = k => k === -1;
     const getNextStageMaxByAge = age => nextStage.find(row => row.t === age).max;
     const getK = t => {
       const data = this.#model.data;
@@ -204,10 +203,21 @@ export class MachineReplacementSolver {
         nextMax;
     };
     const getDecision = (k, r) => {
-      if (hasToReplaceMachine(k)) {
-        return Decision.REPLACE;
+      const hasToReplaceMachine = () => k === -1 || r > k;
+      const hasToKeepMachine = () => k > r;
+      const hasToKeepOrReplaceMachine = () => k === r;
+      let decision;
+
+      if (hasToReplaceMachine()) {
+        decision = Decision.REPLACE;
       }
-      return (r < k) ? Decision.KEEP : ((k < r) ? Decision.REPLACE : Decision.KEEP_OR_REPLACE);
+      else if (hasToKeepMachine()) {
+        decision = Decision.KEEP;
+      }
+      else if (hasToKeepOrReplaceMachine()) {
+        decision = Decision.KEEP_OR_REPLACE;
+      }
+      return decision;
     };
 
     for (let j = 0; j < values.length; j++) {
