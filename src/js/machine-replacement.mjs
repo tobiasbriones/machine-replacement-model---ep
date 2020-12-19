@@ -116,14 +116,42 @@ export class MachineReplacementSolver {
       );
     };
 
-    this.#fillPath(initialNode, INITIAL_DECISION_YEAR);
+    this.#fillPath(initialNode);
     sortDecisionYearByAge(this.#solutionsTree);
   };
 
-  #containsNode(position, compare) {
+  #fillPath(node) {
+    const { decisionYear } = node;
+
+    if (decisionYear > this.#model.decisionYears) {
+      return;
+    }
+
+    const nextDecisionYear = decisionYear + 1;
+    const kNode = new TreeNode(node.machineAge + 1, nextDecisionYear);
+    const rNode = new TreeNode(1, nextDecisionYear);
+
+    this.#addNodeIfNotExists(node, decisionYear);
+    if (kNode.machineAge <= this.#model.maxAge) {
+      this.#fillPath(kNode);
+      node.k = kNode;
+    }
+    this.#fillPath(rNode);
+    node.r = rNode;
+  };
+
+  #addNodeIfNotExists(node, decisionYear) {
+    const decisionYearPosition = decisionYear - 1;
+
+    if (!this.#containsNode(node, decisionYearPosition)) {
+      this.#solutionsTree[decisionYearPosition].push(node);
+    }
+  }
+
+  #containsNode(node, position) {
     return this.#solutionsTree[position].some(
-      e => e.decisionYear === compare.decisionYear
-        && e.machineAge === compare.machineAge
+      e => e.decisionYear === node.decisionYear
+        && e.machineAge === node.machineAge
     );
   };
 
@@ -196,28 +224,6 @@ export class MachineReplacementSolver {
         decision: decision
       };
     }
-  };
-
-  #fillPath(node, decisionYear) {
-    // Basic step
-    if (decisionYear > this.#model.decisionYears) {
-      return;
-    }
-    const kNode = new TreeNode(node.machineAge + 1, decisionYear + 1);
-    const rNode = new TreeNode(1, decisionYear + 1);
-
-    // Decision year starts at 1 (subtract 1)
-    if (!this.#containsNode(decisionYear - 1, node)) {
-      this.#solutionsTree[decisionYear - 1].push(node);
-    }
-
-    // Recursive step
-    if (kNode.machineAge <= this.#model.maxAge) {
-      this.#fillPath(kNode, decisionYear + 1);
-      node.k = kNode;
-    }
-    this.#fillPath(rNode, decisionYear + 1);
-    node.r = rNode;
   };
 }
 
