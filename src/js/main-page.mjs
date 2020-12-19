@@ -171,6 +171,9 @@ export class MainPage {
       const operationCost = this.#getInputValueAt(1, t);
       const sellingRevenue = this.#getInputValueAt(2, t);
 
+      if (income === null || operationCost === null || sellingRevenue === null) {
+        return [];
+      }
       data[t] = newRow(income, operationCost, sellingRevenue);
     }
     return data;
