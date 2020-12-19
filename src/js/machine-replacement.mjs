@@ -169,7 +169,7 @@ export class MachineReplacementSolver {
   #solveStage(stage, nextStage, i) {
     const maxMachineAge = this.#model.maxAge;
     const values = this.#solutionsTree[i];
-    const lastStage = nextStage === null;
+    const isLastStage = nextStage === null;
     const getNextStageMaxByAge = age => nextStage.find(row => row.t === age).max;
     const getK = t => {
       const data = this.#model.data;
@@ -177,7 +177,7 @@ export class MachineReplacementSolver {
       if (t === maxMachineAge) {
         return -1;
       }
-      if (lastStage) {
+      if (isLastStage) {
         return data[t].income +
           data[t + 1].sellingRevenue -
           data[t].operationCost;
@@ -188,7 +188,7 @@ export class MachineReplacementSolver {
     const getR = t => {
       const data = this.#model.data;
 
-      if (lastStage) {
+      if (isLastStage) {
         return data[0].income +
           data[t].sellingRevenue +
           data[1].sellingRevenue -
