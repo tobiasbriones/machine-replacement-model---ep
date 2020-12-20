@@ -22,7 +22,6 @@
 import { assert, expectToThrowError, it } from './tools/test.mjs';
 import { MachineReplacementModel, MachineReplacementSolver } from './machine-replacement.mjs';
 import {
-  getSampleData,
   getSampleModel,
   getSampleModelSolutionStages,
   getSampleModelSolutionTree
@@ -36,14 +35,10 @@ function run() {
 }
 
 function testModel() {
-  const sampleData = getSampleData();
+  const sampleModel = getSampleModel();
 
   it('creates model', () => {
-    const decisionYears = 4;
-    const initialAge = 3;
-    const maxAge = 6;
-    const price = 100_000;
-    const data = sampleData;
+    const { decisionYears, initialAge, maxAge, price, data } = sampleModel;
     const actual = new MachineReplacementModel(
       decisionYears,
       initialAge,
@@ -60,11 +55,7 @@ function testModel() {
   });
 
   it('checks model validation', () => {
-    const decisionYears = 4;
-    const initialAge = 3;
-    const maxAge = 6;
-    const price = 100_000;
-    const data = sampleData;
+    const { decisionYears, initialAge, maxAge, price, data } = sampleModel;
 
     expectToThrowError(() => new MachineReplacementModel(
       -1,
