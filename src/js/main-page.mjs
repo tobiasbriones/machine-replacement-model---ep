@@ -24,8 +24,8 @@ import {
   MachineReplacementModel,
   MachineReplacementSolver
 } from './machine-replacement.mjs';
-import { getSampleModel } from './machine-replacement.unit.test.mjs';
 import { clear, deepCopyOf, getSpanEl } from './tools/gui-utils.mjs';
+import { getSampleModel } from './machine-replacement-samples.mjs';
 
 const yearsNextButtonId = 'yearsSubmitButton';
 const solveButtonId = 'solveButton';
