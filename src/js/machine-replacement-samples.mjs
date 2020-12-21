@@ -37,22 +37,54 @@ export function getSampleModel() {
 }
 
 export function getSampleData() {
-  const newRow = (income, operationCost, sellingRevenue) => {
-    return {
-      income: income,
-      operationCost: operationCost,
-      sellingRevenue: sellingRevenue
-    };
-  };
   return [
-    newRow(20000, 200, -1),
-    newRow(19000, 600, 80000),
-    newRow(18500, 1200, 60000),
-    newRow(17200, 1500, 50000),
-    newRow(15500, 1700, 30000),
-    newRow(14000, 1800, 10000),
-    newRow(12200, 2200, 5000)
+    newDataRow(20000, 200, -1),
+    newDataRow(19000, 600, 80000),
+    newDataRow(18500, 1200, 60000),
+    newDataRow(17200, 1500, 50000),
+    newDataRow(15500, 1700, 30000),
+    newDataRow(14000, 1800, 10000),
+    newDataRow(12200, 2200, 5000)
   ];
+}
+
+export function getAarfSampleModel() {
+  const decisionYears = 10;
+  const initialAge = 0;
+  const maxAge = 10;
+  const price = 8608000;
+  const data = getAarfSampleData();
+  return new MachineReplacementModel(
+    decisionYears,
+    initialAge,
+    maxAge,
+    price,
+    data
+  );
+}
+
+export function getAarfSampleData() {
+  return [
+    newDataRow(2330000, 240000, -1),
+    newDataRow(2320000, 253000, 8177600),
+    newDataRow(2210000, 257000, 7768720),
+    newDataRow(2090000, 272000, 7380284),
+    newDataRow(1895000, 274000, 7011269),
+    newDataRow(1770000, 301000, 6310142),
+    newDataRow(1720000, 311000, 5679127),
+    newDataRow(1655000, 361000, 5111215),
+    newDataRow(1590000, 396000, 4600093),
+    newDataRow(1345000, 403000, 3910079),
+    newDataRow(1029000, 415000, 3323567)
+  ];
+}
+
+function newDataRow(income, operationCost, sellingRevenue) {
+  return {
+    income: income,
+    operationCost: operationCost,
+    sellingRevenue: sellingRevenue
+  };
 }
 
 // --------------------------------------  SAMPLE SOLUTION  ------------------------------------- //
