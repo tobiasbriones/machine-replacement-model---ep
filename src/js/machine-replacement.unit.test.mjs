@@ -22,6 +22,7 @@
 import { assert, expectToThrowError, it } from './tools/test.mjs';
 import { MachineReplacementModel, MachineReplacementSolver } from './machine-replacement.mjs';
 import {
+  getAarfSampleModel, getAarfSampleModelSolutionStages,
   getSampleModel,
   getSampleModelSolutionStages,
   getSampleModelSolutionTree
@@ -113,6 +114,14 @@ function testSolver() {
     solver.solve(model);
 
     assert(JSON.stringify(solver.solutionsTree) === JSON.stringify(expectedTree));
+    assert(JSON.stringify(solver.stages) === JSON.stringify(expectedStages));
+  });
+  it('solves aarf sample model', () => {
+    const model = getAarfSampleModel();
+    const expectedStages = getAarfSampleModelSolutionStages();
+
+    solver.solve(model);
+
     assert(JSON.stringify(solver.stages) === JSON.stringify(expectedStages));
   });
 }
