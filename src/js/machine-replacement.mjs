@@ -170,12 +170,14 @@ export class MachineReplacementSolver {
     const maxMachineAge = this.#model.maxAge;
     const values = this.#solutionsTree[i];
     const isLastStage = nextStage === null;
+    const canKeepOneMoreYear = t => t < maxMachineAge;
     const getNextStageMaxByAge = age => nextStage.find(row => row.t === age).max;
+    const getMax = (k, r) => k === false ? r : Math.max(k, r);
     const getK = t => {
       const data = this.#model.data;
 
-      if (t === maxMachineAge) {
-        return -1;
+      if (!canKeepOneMoreYear(t)) {
+        return false;
       }
       if (isLastStage) {
         return data[t].income +
@@ -202,8 +204,11 @@ export class MachineReplacementSolver {
         this.#model.price +
         nextMax;
     };
-    const getDecision = (k, r) => {
-      const hasToReplaceMachine = () => k === -1 || r > k;
+    const getDecision = (k, r, t) => {
+      if (k === false) {
+        return Decision.REPLACE;
+      }
+      const hasToReplaceMachine = () => r > k;
       const hasToKeepMachine = () => k > r;
       const hasToKeepOrReplaceMachine = () => k === r;
       let decision;
@@ -224,11 +229,11 @@ export class MachineReplacementSolver {
       const t = values[j].machineAge;
       const k = getK(t);
       const r = getR(t);
-      const max = Math.max(k, r);
-      const decision = getDecision(k, r);
+      const max = getMax(k, r);
+      const decision = getDecision(k, r, t);
       stage[j] = {
         t: t,
-        k: k,
+        k: canKeepOneMoreYear(t) ? k : false,
         r: r,
         max: max,
         decision: decision
