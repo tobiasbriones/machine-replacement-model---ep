@@ -1,6 +1,6 @@
 # Example Project: Machine Replacement Model
 
-[![License](https://img.shields.io/github/license/TobiasBriones/example.math.or.model.web.machine_replacement)](https://github.com/TobiasBriones/example.math.or.model.web.machine_replacement/blob/master/LICENSE)
+[![License](https://img.shields.io/github/license/TobiasBriones/example.math.or.model.web.machine-replacement)](https://github.com/TobiasBriones/example.math.or.model.web.machine-replacement/blob/main/LICENSE)
 
 Example project for solving Operations Research machine maintenance/replacement models. This app was
 a sample created in pure JS and Bootstrap.
@@ -27,9 +27,9 @@ a sample created in pure JS and Bootstrap.
   the stage 3 with t = 5!
 
 - The [samples module](./src/js/machine-replacement-samples.mjs) also has an example from this
-  source
-  [AARF sample.](https://www.mbsresearch.com/files/journals/2017/July/_current_2017_Aug_BIJuMqzmjVgbate.pdf)
-  The default sample to show in the app can be set in the MainPage constructor.
+  source: [AARF sample](https://www.mbsresearch.com/files/journals/2017/July/_current_2017_Aug_BIJuMqzmjVgbate.pdf).
+  The default sample to show in the app can be set in the MainPage constructor. The default sample
+  is Taha's example, so you can opt to set the AARF one to check it out too.
 
 - I've checked several samples from papers, and it's incredible how wrong they are and how much time
   those mistakes take away from us the readers. I've found horrible mistakes related to:
@@ -69,5 +69,4 @@ Copyright © 2019-2020 Tobias Briones. All rights reserved.
 
 ### License
 
-This software is licensed under
-the [GNU General Public License v3.0 or later License](https://github.com/TobiasBriones/example.math.or.model.web.machine-replacement/blob/master/LICENSE).
+This software is licensed under the [GNU General Public License v3.0 or later License](https://github.com/TobiasBriones/example.math.or.model.web.machine-replacement/blob/main/LICENSE).
