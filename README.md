@@ -26,6 +26,17 @@ a sample created in pure JS and Bootstrap.
   this app. Moreover, you might find that the example in the book has an error in the decision for
   the stage 3 with t = 5!
 
+- The [samples module](./src/js/machine-replacement-samples.mjs) also has an example from this
+  source
+  [AARF sample.](https://www.mbsresearch.com/files/journals/2017/July/_current_2017_Aug_BIJuMqzmjVgbate.pdf)
+  The default sample to show in the app can be set in the MainPage constructor.
+
+- I've checked several samples from papers, and it's incredible how wrong they are and how much time
+  those mistakes take away from us the readers. I've found horrible mistakes related to:
+  copy-paste, numeric computation (all the values from the beginning), and minor mistakes like
+  printing a wrong character in the best of the cases. So, it's quite easy to spot those huge or
+  minor mistakes by using the application to compute the right solutions.
+
 ## Getting started
 
 Run [index.html](./src/index.html) on an HTTP server to serve the app.
