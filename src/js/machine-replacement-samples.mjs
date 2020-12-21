@@ -310,7 +310,7 @@ export function getSampleModelSolutionStages() {
       { 't': 1, 'k': 78400, 'r': 79800, 'max': 79800, 'decision': 'R' },
       { 't': 2, 'k': 67300, 'r': 59800, 'max': 67300, 'decision': 'K' },
       { 't': 3, 'k': 45700, 'r': 49800, 'max': 49800, 'decision': 'R' },
-      { 't': 6, 'k': -1, 'r': 4800, 'max': 4800, 'decision': 'R' }
+      { 't': 6, 'k': false, 'r': 4800, 'max': 4800, 'decision': 'R' }
     ]
   ];
 }
