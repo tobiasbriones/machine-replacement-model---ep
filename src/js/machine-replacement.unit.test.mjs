@@ -86,6 +86,13 @@ function testModel() {
       -1,
       data
     ));
+    expectToThrowError(() => new MachineReplacementModel(
+      decisionYears,
+      10,
+      5,
+      price,
+      data
+    ));
   });
 
   it('checks default model', () => {
