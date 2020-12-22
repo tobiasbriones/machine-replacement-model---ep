@@ -49,12 +49,11 @@ Run [index.test.html](./src/index.test.html) on an HTTP server to execute the te
 
 ## Contact
 
-This software: [App](https://tobiasbriones.github.io/example.math.or.model.web.machine-replacement/)
-, [GitHub Repository](https://github.com/TobiasBriones/example.math.or.model.web.machine-replacement)
+This software: [App](https://tobiasbriones.github.io/example.math.or.model.web.machine-replacement), [GitHub Repository](https://github.com/TobiasBriones/example.math.or.model.web.machine-replacement)
 
 Tobias Briones: [GitHub](https://github.com/TobiasBriones)
 
-Example Project: [App](https://tobiasbriones.github.io/example-project/)
+Example Project: [App](https://tobiasbriones.github.io/example-project)
 
 2DP Repsymo Solver: [GitHub Repository](https://github.com/TobiasBriones/2dp-repsymo-solver)
 
