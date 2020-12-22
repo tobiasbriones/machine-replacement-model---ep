@@ -118,16 +118,8 @@ export class MainPage {
 
   #onSolve() {
     const model = this.#getModel();
-    const validate = model => {
-      const isValid = model !== null;
 
-      if (!isValid) {
-        alert('Values are integer numbers');
-      }
-      return isValid;
-    };
-
-    if (validate(model)) {
+    if (model !== null) {
       this.#solve(model);
     }
   }
@@ -139,7 +131,7 @@ export class MainPage {
     const machinePrice = this.machinePrice;
     const data = this.#getData();
     const containsNull = (...elements) => elements.find(e => e === null) === null;
-    const isInputValid = () => {
+    const isInputSet = () => {
       return !containsNull(
         decisionYears,
         maxAge,
@@ -147,15 +139,24 @@ export class MainPage {
         machinePrice
       );
     };
-    return isInputValid() ?
-      new MachineReplacementModel(
-        decisionYears,
-        initialAge,
-        maxAge,
-        machinePrice,
-        data
-      ) :
-      null;
+    let model;
+
+    if (isInputSet()) {
+      try {
+        model = new MachineReplacementModel(
+          decisionYears,
+          initialAge,
+          maxAge,
+          machinePrice,
+          data
+        );
+      }
+      catch (error) {
+        alert(error);
+        model = null;
+      }
+    }
+    return model;
   }
 
   #getData() {
