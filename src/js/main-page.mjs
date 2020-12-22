@@ -129,7 +129,6 @@ export class MainPage {
     const maxAge = this.maxAge;
     const initialAge = this.initialAge;
     const machinePrice = this.machinePrice;
-    const data = this.#getData();
     const containsNull = (...elements) => elements.find(e => e === null) === null;
     const isInputSet = () => {
       return !containsNull(
@@ -139,22 +138,29 @@ export class MainPage {
         machinePrice
       );
     };
-    let model;
+    let model = null;
 
     if (isInputSet()) {
-      try {
-        model = new MachineReplacementModel(
-          decisionYears,
-          initialAge,
-          maxAge,
-          machinePrice,
-          data
-        );
-      }
-      catch (error) {
-        alert(error);
-        model = null;
-      }
+      model = this.#getModelProvidedInputIsSet();
+    }
+    return model;
+  }
+
+  #getModelProvidedInputIsSet() {
+    let model;
+
+    try {
+      model = new MachineReplacementModel(
+        this.decisionYears,
+        this.initialAge,
+        this.maxAge,
+        this.machinePrice,
+        this.#getData()
+      );
+    }
+    catch (error) {
+      alert(error);
+      model = null;
     }
     return model;
   }
