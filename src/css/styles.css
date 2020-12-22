@@ -95,9 +95,16 @@ footer > div {
   bottom: 0;
 }
 
-footer .fa {
-  font-size: 24px;
-  color: #FAFAFA;
+footer .gh-link {
+  display: block;
+  padding: 8px;
+}
+
+footer .gh-link > img {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+  user-select: none;
 }
 
 footer a {
