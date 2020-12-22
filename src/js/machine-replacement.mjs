@@ -264,9 +264,19 @@ function validateModel(model) {
       throw new Error(msg);
     }
   };
+  const validateMachineAge = (initialAge, maxAge) => {
+    if (initialAge > maxAge) {
+      const msg = `
+      Initial age must be less than or equals to Max age: 
+      Initial age ${initialAge}, Max age ${maxAge}
+      `;
+      throw new Error(msg);
+    }
+  }
 
   validateNonNegative(decisionYears, 'decisionYears');
   validateNonNegative(initialAge, 'initialAge');
   validateNonNegative(maxAge, 'maxAge');
   validateNonNegative(price, 'price');
+  validateMachineAge(initialAge, maxAge);
 }
