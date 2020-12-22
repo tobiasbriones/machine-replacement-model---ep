@@ -45,7 +45,7 @@ Run [index.test.html](./src/index.test.html) on an HTTP server to execute the te
 
 ## Screenshots
 
-[![Screenshot 1](https://raw.githubusercontent.com/TobiasBriones/images/master/example-projects/example.math.or.model.web.machine-replacement/screenshot-1.png)](https://github.com/TobiasBriones/images/tree/master/example-projects)
+[![Screenshot 1](https://raw.githubusercontent.com/TobiasBriones/images/main/example-projects/example.math.or.model.web.machine-replacement/v2-screenshot-1.png)](https://github.com/TobiasBriones/images/tree/main/example-projects)
 
 ## Contact
 
