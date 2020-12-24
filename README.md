@@ -40,11 +40,13 @@ Run [index.test.html](./src/index.test.html) on an HTTP server to execute the te
   The default sample to show in the app can be set in the MainPage constructor. The default sample
   is Taha's example, so you can opt to set the AARF one to check it out too.
 
-- I've checked several samples from papers, and it's incredible how wrong they are and how much time
-  those mistakes take away from us the readers. I've found horrible mistakes related to:
-  copy-paste, numeric computation (all the values from the beginning), and minor mistakes like
-  printing a wrong character in the best of the cases. So, it's quite easy to spot those huge or
-  minor mistakes by using the application to compute the right solutions.
+I've checked out several problems/exercises from papers or resources on the internet, and it's
+incredible how wrong they are and how much time those mistakes take away from us, the readers. I've
+found horrible mistakes related to copy-paste, numeric computation (all the values from the
+beginning), and minor mistakes like printing a wrong character in the best of the cases. So it's
+quite easy to spot those huge or minor mistakes by using the application to compute the right
+solutions. I, fortunately, have the solver application! The solver app/software is a must in most
+situations to verify the solutions to our problems.
 
 ## Screenshots
 
