@@ -22,7 +22,7 @@ Run [index.test.html](./src/index.test.html) on an HTTP server to execute the te
 
 - In the solutions tree you have a pair (K, R) that indicates an imaginary arrow if you take either
   Keep (**K**) or Replace (**R**) from that node, e.g. in the screenshot example if you are in the
-  decision year #2 and your machine has 4 years, if you choose **K** then the arrow goes from that
+  decision year #2, and your machine has 4 years, if you choose **K** then the arrow goes from that
   node to the node with the value of 5 in the next decision year, if you choose **R** then the arrow
   goes to the node with the value of 1 in the next decision year.
 
