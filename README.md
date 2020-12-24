@@ -1,9 +1,18 @@
 # Example Project: Machine Replacement Model
 
-[![License](https://img.shields.io/github/license/TobiasBriones/example.math.or.model.web.machine-replacement)](https://github.com/TobiasBriones/example.math.or.model.web.machine-replacement/blob/main/LICENSE)
+[![EP](https://raw.githubusercontent.com/TobiasBriones/images/main/example-projects/example.math.or.model.web.machine-replacement/ep-mrm-badge.svg)](https://tobiasbriones.github.io/example-project/ep/machine-replacement-model)
+[![GitHub Repository](https://raw.githubusercontent.com/TobiasBriones/general-images/main/example-projects/badges/ep-gh-repo-badge.svg)](https://github.com/TobiasBriones/example.math.or.model.web.machine-replacement)
+
+[![Project GitHub License](https://img.shields.io/github/license/TobiasBriones/example.math.or.model.web.machine-replacement.svg?style=flat-square)](https://github.com/TobiasBriones/example.math.or.model.web.machine-replacement/blob/main/LICENSE)
 
 Example project for solving Operations Research machine maintenance/replacement models. This app was
 a sample created in pure JS and Bootstrap.
+
+## Getting started
+
+Run [index.html](./src/index.html) on an HTTP server to serve the app.
+
+Run [index.test.html](./src/index.test.html) on an HTTP server to execute the tests.
 
 ## Notes
 
@@ -37,19 +46,14 @@ a sample created in pure JS and Bootstrap.
   printing a wrong character in the best of the cases. So, it's quite easy to spot those huge or
   minor mistakes by using the application to compute the right solutions.
 
-## Getting started
-
-Run [index.html](./src/index.html) on an HTTP server to serve the app.
-
-Run [index.test.html](./src/index.test.html) on an HTTP server to execute the tests.
-
 ## Screenshots
 
 [![Screenshot 1](https://raw.githubusercontent.com/TobiasBriones/images/main/example-projects/example.math.or.model.web.machine-replacement/v2-screenshot-1.png)](https://github.com/TobiasBriones/images/tree/main/example-projects)
 
 ## Contact
 
-This software: [App](https://tobiasbriones.github.io/example.math.or.model.web.machine-replacement), [GitHub Repository](https://github.com/TobiasBriones/example.math.or.model.web.machine-replacement)
+This software: [App](https://tobiasbriones.github.io/example.math.or.model.web.machine-replacement), 
+[GitHub Repository](https://github.com/TobiasBriones/example.math.or.model.web.machine-replacement)
 
 Tobias Briones: [GitHub](https://github.com/TobiasBriones)
 
@@ -68,4 +72,4 @@ Copyright © 2019-2020 Tobias Briones. All rights reserved.
 
 ### License
 
-This software is licensed under the [GNU General Public License v3.0 or later License](https://github.com/TobiasBriones/example.math.or.model.web.machine-replacement/blob/main/LICENSE).
+This software is licensed under the [GNU General Public License v3.0 or later License](./LICENSE).
