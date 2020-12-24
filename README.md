@@ -45,8 +45,9 @@ incredible how wrong they are and how much time those mistakes take away from us
 found horrible mistakes related to copy-paste, numeric computation (all the values from the
 beginning), and minor mistakes like printing a wrong character in the best of the cases. So it's
 quite easy to spot those huge or minor mistakes by using the application to compute the right
-solutions. I, fortunately, have the solver application! The solver app/software is a must in most
-situations to verify the solutions to our problems.
+solutions. No one would've noticed those mistakes if it wasn't for the application. I, fortunately,
+have the solver application! The solver app/software is a must in most situations to verify the
+solutions to our problems.
 
 ## Screenshots
 
