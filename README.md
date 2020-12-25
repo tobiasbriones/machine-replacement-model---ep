@@ -20,8 +20,8 @@ Run [index.test.html](./src/index.test.html) on an HTTP server to execute the te
   by [2DP Repsymo Solver](https://github.com/TobiasBriones/2dp-repsymo-solver)
   which is a complete web application that solves several models of dynamic programming.
 
-- In the solutions tree you have a pair (K, R) that indicates an imaginary arrow if you take either
-  Keep (**K**) or Replace (**R**) from that node, e.g. in the screenshot example if you are in the
+- In the solutions tree, you have a pair (K, R) that indicates an imaginary arrow if you take either
+  Keep (**K**) or Replace (**R**) from that node, e.g. in the screenshot example if you are in
   decision year #2, and your machine has 4 years, if you choose **K** then the arrow goes from that
   node to the node with the value of 5 in the next decision year, if you choose **R** then the arrow
   goes to the node with the value of 1 in the next decision year.
@@ -33,7 +33,7 @@ Run [index.test.html](./src/index.test.html) on an HTTP server to execute the te
 
 - By default, the example found in Taha's book from the machine replacement section comes set with
   this app. Moreover, you might find that the example in the book has an error in the decision for
-  the stage 3 with t = 5!
+  stage 3 with t = 5!
 
 - The [samples module](./src/js/machine-replacement-samples.mjs) also has an example from 
   [this source (AARF paper)](https://www.mbsresearch.com/files/journals/2017/July/_current_2017_Aug_BIJuMqzmjVgbate.pdf).
