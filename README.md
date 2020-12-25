@@ -1,6 +1,7 @@
 # Example Project: Machine Replacement Model
 
 [![EP](https://raw.githubusercontent.com/TobiasBriones/images/main/example-projects/example.math.or.model.web.machine-replacement/ep-mrm-badge.svg)](https://tobiasbriones.github.io/example-project/ep/machine-replacement-model)
+&nbsp;
 [![GitHub Repository](https://raw.githubusercontent.com/TobiasBriones/general-images/main/example-projects/badges/ep-gh-repo-badge.svg)](https://github.com/TobiasBriones/example.math.or.model.web.machine-replacement)
 
 [![Project GitHub License](https://img.shields.io/github/license/TobiasBriones/example.math.or.model.web.machine-replacement.svg?style=flat-square)](https://github.com/TobiasBriones/example.math.or.model.web.machine-replacement/blob/main/LICENSE)
