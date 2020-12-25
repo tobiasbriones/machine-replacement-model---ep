@@ -38,7 +38,7 @@ Run [index.test.html](./src/index.test.html) on an HTTP server to execute the te
 - The [samples module](./src/js/machine-replacement-samples.mjs) also has an example from 
   [this source (AARF paper)](https://www.mbsresearch.com/files/journals/2017/July/_current_2017_Aug_BIJuMqzmjVgbate.pdf).
   The default sample to show in the app can be set in the MainPage constructor. The default sample
-  is Taha's example, so you can opt to set the AARF one to check it out too.
+  is Taha's example, so you can opt to set the other sample to check it out too.
 
 I've checked out several problems/exercises from papers or resources on the internet, and it's
 incredible how wrong they are and how much time those mistakes take away from us, the readers. I've
