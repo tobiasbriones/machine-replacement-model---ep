@@ -1,10 +1,10 @@
 # Example Project: Machine Replacement Model
 
-[![EP](https://raw.githubusercontent.com/TobiasBriones/images/main/example-projects/example.math.or.model.web.machine-replacement/ep-mrm-badge.svg)](https://tobiasbriones.github.io/example-project/ep/machine-replacement-model)
+[![EP](https://raw.githubusercontent.com/tobiasbriones/images/main/example-projects/example.math.or.model.web.machine-replacement/ep-mrm-badge.svg)](https://tobiasbriones.github.io/example-project/ep/machine-replacement-model)
 &nbsp;
-[![GitHub Repository](https://raw.githubusercontent.com/TobiasBriones/general-images/main/example-projects/badges/ep-gh-repo-badge.svg)](https://github.com/TobiasBriones/example.math.or.model.web.machine-replacement)
+[![GitHub Repository](https://raw.githubusercontent.com/tobiasbriones/general-images/main/example-projects/badges/ep-gh-repo-badge.svg)](https://github.com/tobiasbriones/ep-machine-replacement-model)
 
-[![Project GitHub License](https://img.shields.io/github/license/TobiasBriones/example.math.or.model.web.machine-replacement.svg?style=flat-square)](https://github.com/TobiasBriones/example.math.or.model.web.machine-replacement/blob/main/LICENSE)
+[![Project GitHub License](https://img.shields.io/github/license/tobiasbriones/ep-machine-replacement-model.svg?style=flat-square)](https://github.com/tobiasbriones/ep-machine-replacement-model/blob/main/LICENSE)
 
 Example project for solving Operations Research machine maintenance/replacement models. This app was
 a sample created in pure JS and Bootstrap.
@@ -18,7 +18,7 @@ Run [index.test.html](./src/index.test.html) on an HTTP server to execute the te
 ## Notes
 
 - This tool/example-project was superseded
-  by [2DP Repsymo Solver](https://github.com/TobiasBriones/2dp-repsymo-solver)
+  by [2DP Repsymo Solver](https://github.com/tobiasbriones/2dp-repsymo-solver)
   which is a complete web application that solves several models of dynamic programming.
 
 - In the solutions tree, you have a pair (K, R) that indicates an imaginary arrow if you take either
@@ -52,18 +52,18 @@ solutions to our problems.
 
 ## Screenshots
 
-[![Screenshot 1](https://raw.githubusercontent.com/TobiasBriones/images/main/example-projects/example.math.or.model.web.machine-replacement/v2-screenshot-1.png)](https://github.com/TobiasBriones/images/tree/main/example-projects)
+[![Screenshot 1](https://raw.githubusercontent.com/tobiasbriones/images/main/example-projects/example.math.or.model.web.machine-replacement/v2-screenshot-1.png)](https://github.com/tobiasbriones/images/tree/main/example-projects)
 
 ## Contact
 
-This software: [App](https://tobiasbriones.github.io/example.math.or.model.web.machine-replacement), 
-[GitHub Repository](https://github.com/TobiasBriones/example.math.or.model.web.machine-replacement)
+This software: [App](https://tobiasbriones.github.io/ep-machine-replacement-model), 
+[GitHub Repository](https://github.com/tobiasbriones/ep-machine-replacement-model)
 
-Tobias Briones: [GitHub](https://github.com/TobiasBriones)
+Tobias Briones: [GitHub](https://github.com/tobiasbriones)
 
 Example Project: [App](https://tobiasbriones.github.io/example-project)
 
-2DP Repsymo Solver: [GitHub Repository](https://github.com/TobiasBriones/2dp-repsymo-solver)
+2DP Repsymo Solver: [GitHub Repository](https://github.com/tobiasbriones/2dp-repsymo-solver)
 
 ## About
 
