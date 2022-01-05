@@ -17,6 +17,16 @@ export const Decision = Object.freeze({
   KEEP_OR_REPLACE: 'K or R'
 });
 
+/**
+ * Defines the standard machine replacement model with fundamental variables to
+ * solve a given problem.
+ *
+ * The data attribute contains the tabular data of the problem.
+ *
+ * References: Taha p.482-484
+ *
+ * @author Tobias Briones
+ */
 export class MachineReplacementModel {
   #decisionYears;
   #initialAge;
@@ -61,6 +71,24 @@ export class MachineReplacementModel {
   }
 }
 
+/**
+ * Solves a MachineReplacementModel.
+ *
+ * It yields an array of stages containing the
+ * computations for each decision year from which you can follow the respective
+ * optimum solution, and it should be represented as a table.
+ *
+ * It yields a solutions tree containing the possibilities (Keep or Replace) per
+ * decision year than can be taken from a given year. The root node is the
+ * initial year. It should be represented as a tree plotted on a
+ * machine-age-vs-decision-year plane. The particular model's solution(s) can be
+ * followed along this tree which contains all solutions space for
+ * informational purposes.
+ *
+ * See Taha p.482 for the model's recursive equations.
+ *
+ * @author Tobias Briones
+ */
 export class MachineReplacementSolver {
   #model;
   #stages;

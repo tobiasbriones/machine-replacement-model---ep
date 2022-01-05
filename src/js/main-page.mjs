@@ -25,6 +25,11 @@ const timeInputId = 'timeInput';
 const initialAgeInputId = 'initialAgeInput';
 const machinePriceInputId = 'machinePriceInput';
 
+/**
+ * Manages the application based on pure HTML and JS DOM APIs.
+ *
+ * @author Tobias Briones
+ */
 export class MainPage {
   #solver;
   #sampleModel;
@@ -370,6 +375,15 @@ function getInputTableEl(time) {
   }
 }
 
+/**
+ * Returns and computes the rendered element with the solutions tree.
+ *
+ * It uses the DOM APIs to build the tree.
+ *
+ * @param tree solutions tree
+ * @param model machine replacement model
+ * @returns {HTMLDivElement} the rendered element with the solutions tree
+ */
 function getSolutionTreeEl(tree, model) {
   return (
     () => {
@@ -472,12 +486,18 @@ function getSolutionTreeEl(tree, model) {
         break;
       }
     }
-    return (
-             index !== -1
-           ) ? decisionColumn[index] : null;
+    return (index !== -1) ? decisionColumn[index] : null;
   }
 }
 
+/**
+ * Returns and computes the rendered element containing the problem development.
+ *
+ * It uses the DOM APIs to build the element.
+ *
+ * @param stages problem solution stages
+ * @returns {HTMLDivElement} the rendered element containing the problem development
+ */
 function getSolutionStagesEl(stages) {
   return (
     () => {
@@ -554,6 +574,18 @@ function getSolutionStagesEl(stages) {
   }
 }
 
+/**
+ * Returns and computes the rendered element representing the problem's
+ * solution as a chain of options (K, R) with all the possible branches if
+ * there is a (K or R) solution (one if K and the other if R).
+ *
+ * It uses the DOM APIs and recursion to build the element.
+ *
+ * @param stages problem solution stages
+ * @param initialAge machine initial age
+ * @returns {HTMLDivElement} the rendered element representing the problem's
+ * solution
+ */
 function getResultChainsEl(stages, initialAge) {
   return (
     () => {
