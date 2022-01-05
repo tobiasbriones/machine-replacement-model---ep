@@ -1,10 +1,10 @@
 # Example Project: Machine Replacement Model
 
-[![EP](https://raw.githubusercontent.com/tobiasbriones/images/main/example-projects/example.math.or.model.web.machine-replacement/ep-mrm-badge.svg)](https://tobiasbriones.github.io/example-project/ep/machine-replacement-model)
+[![Project](https://raw.githubusercontent.com/tobiasbriones/ep-machine-replacement-model/static/badge.svg)](https://dev.mathsoftware.engineer/ep-machine-replacement-model/)
 &nbsp;
-[![GitHub Repository](https://raw.githubusercontent.com/tobiasbriones/general-images/main/example-projects/badges/ep-gh-repo-badge.svg)](https://github.com/tobiasbriones/ep-machine-replacement-model)
+[![GitHub Repository](https://raw.githubusercontent.com/tobiasbriones/static/main/gh-badge.svg)](https://github.com/tobiasbriones/ep-machine-replacement-model)
 
-[![Project GitHub License](https://img.shields.io/github/license/tobiasbriones/ep-machine-replacement-model.svg?style=flat-square)](https://github.com/tobiasbriones/ep-machine-replacement-model/blob/main/LICENSE)
+[![GitHub Project License](https://img.shields.io/github/license/tobiasbriones/ep-machine-replacement-model.svg?style=flat-square)](https://github.com/tobiasbriones/ep-machine-replacement-model/blob/main/LICENSE)
 
 Example project for solving Operations Research machine maintenance/replacement models. This app was
 a sample created in pure JS and Bootstrap.
@@ -14,6 +14,8 @@ a sample created in pure JS and Bootstrap.
 Run [index.html](./src/index.html) on an HTTP server to serve the app.
 
 Run [index.test.html](./src/index.test.html) on an HTTP server to execute the tests.
+
+Go to: [App](https://machine-replacement-model.ep.dev.mathsoftware.engineer)
 
 ## Notes
 
@@ -52,18 +54,14 @@ solutions to our problems.
 
 ## Screenshots
 
-[![Screenshot 1](https://raw.githubusercontent.com/tobiasbriones/images/main/example-projects/example.math.or.model.web.machine-replacement/v2-screenshot-1.png)](https://github.com/tobiasbriones/images/tree/main/example-projects)
+![Screenshot 1](https://github.com/tobiasbriones/ep-machine-replacement-model/releases/download/v1.0.0/screenshot-1.png)
 
 ## Contact
 
-This software: [App](https://tobiasbriones.github.io/ep-machine-replacement-model), 
-[GitHub Repository](https://github.com/tobiasbriones/ep-machine-replacement-model)
-
 Tobias Briones: [GitHub](https://github.com/tobiasbriones)
 
-Example Project: [App](https://tobiasbriones.github.io/example-project)
-
-2DP Repsymo Solver: [GitHub Repository](https://github.com/tobiasbriones/2dp-repsymo-solver)
+2DP Repsymo Solver: [Home](https://repsymo.com),
+[GitHub Repository](https://github.com/repsymo/2dp-repsymo-solver)
 
 ## About
 
