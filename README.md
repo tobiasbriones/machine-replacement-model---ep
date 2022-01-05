@@ -44,7 +44,7 @@ Go to: [App](https://machine-replacement-model.ep.dev.mathsoftware.engineer)
   section comes set with this app. Moreover, you might find that the example in
   the book has an error in the decision for stage 3 with t = 5!
 
-- The [samples module](./src/js/machine-replacement-samples.mjs) also has an
+- The [samples module](src/model/machine-replacement-samples.mjs) also has an
   example from
   [this source (AARF paper)](https://www.mbsresearch.com/files/journals/2017/July/_current_2017_Aug_BIJuMqzmjVgbate.pdf)
   . The default sample to show in the app can be set in the MainPage

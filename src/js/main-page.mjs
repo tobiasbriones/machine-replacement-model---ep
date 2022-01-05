@@ -10,12 +10,12 @@
  * tree or at https://opensource.org/licenses/GPL-3.0.
  */
 
-import { getSampleModel } from './machine-replacement-samples.mjs';
+import { getSampleModel } from '../model/machine-replacement-samples.mjs';
 import {
   Decision,
   MachineReplacementModel,
   MachineReplacementSolver
-} from './machine-replacement.mjs';
+} from '../model/machine-replacement.mjs';
 import { clear, deepCopyOf, getSpanEl } from './tools/gui-utils.mjs';
 
 const yearsNextButtonId = 'yearsSubmitButton';

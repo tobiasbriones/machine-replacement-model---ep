@@ -21,7 +21,7 @@ import {
   MachineReplacementModel,
   MachineReplacementSolver
 } from './machine-replacement.mjs';
-import { assert, expectToThrowError, it } from './tools/test.mjs';
+import { assert, expectToThrowError, it } from '../js/tools/test.mjs';
 
 export const machineReplacementTest = { run };
 

@@ -10,6 +10,6 @@
  * tree or at https://opensource.org/licenses/GPL-3.0.
  */
 
-import { machineReplacementTest } from './machine-replacement.unit.test.mjs';
+import { machineReplacementTest } from '../model/machine-replacement.unit.test.mjs';
 
 machineReplacementTest.run();
