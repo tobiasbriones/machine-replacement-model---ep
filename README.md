@@ -80,7 +80,7 @@ Tobias Briones: [GitHub](https://github.com/tobiasbriones)
 Example project app for solving Operations Research's machine
 maintenance/replacement models.
 
-Copyright © 2019-2020 Tobias Briones. All rights reserved.
+Copyright © 2019-2022 Tobias Briones. All rights reserved.
 
 ### License
 
