@@ -5,27 +5,18 @@
  *
  * This file is part of Example Project: Machine Replacement Model.
  *
- * Machine Replacement Model is free software: you can redistribute it and/or
- * modify it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Machine Replacement Model is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License along with
- * Machine Replacement Model.  If not, see <https://www.gnu.org/licenses/>.
+ * This source code is licensed under the GNU General Public License v3.0 or
+ * later License found in the LICENSE file in the root directory of this source
+ * tree or at https://opensource.org/licenses/GPL-3.0.
  */
 
+import { getSampleModel } from './machine-replacement-samples.mjs';
 import {
   Decision,
   MachineReplacementModel,
   MachineReplacementSolver
 } from './machine-replacement.mjs';
 import { clear, deepCopyOf, getSpanEl } from './tools/gui-utils.mjs';
-import { getSampleModel } from './machine-replacement-samples.mjs';
 
 const yearsNextButtonId = 'yearsSubmitButton';
 const solveButtonId = 'solveButton';
@@ -83,8 +74,10 @@ export class MainPage {
   }
 
   #bindEvents() {
-    this.#on(yearsNextButtonId, 'click').call(this.#onYearsNextButtonClick);
-    this.#on(solveButtonId, 'click').call(this.#onSolve);
+    this.#on(yearsNextButtonId, 'click')
+        .call(this.#onYearsNextButtonClick);
+    this.#on(solveButtonId, 'click')
+        .call(this.#onSolve);
   }
 
   #onYearsNextButtonClick() {
@@ -181,7 +174,12 @@ export class MainPage {
       const operationCost = this.#getInputValueAt(1, t);
       const sellingRevenue = this.#getInputValueAt(2, t);
 
-      if (income === null || operationCost === null || sellingRevenue === null) {
+      if (income
+        === null
+        || operationCost
+        === null
+        || sellingRevenue
+        === null) {
         return [];
       }
       data[t] = newRow(income, operationCost, sellingRevenue);
@@ -237,7 +235,9 @@ export class MainPage {
     this.#solutionsTreeView.appendChild(solution.treeEl);
     this.#stagesView.appendChild(solution.stagesEl);
     this.#chainResultView.appendChild(solution.resultChainsEl);
-    document.getElementById('solutionPanel').classList.remove('gone');
+    document.getElementById('solutionPanel')
+            .classList
+            .remove('gone');
   }
 
   #setSampleModelInitialValues() {
@@ -302,16 +302,18 @@ export class MainPage {
 }
 
 function getInputTableEl(time) {
-  return (() => {
-    const el = document.createElement('table');
-    const tHeadEl = getTheadEl();
-    const tBodyEl = getTbodyEl(time);
+  return (
+    () => {
+      const el = document.createElement('table');
+      const tHeadEl = getTheadEl();
+      const tBodyEl = getTbodyEl(time);
 
-    el.classList.add('table');
-    el.appendChild(tHeadEl);
-    el.appendChild(tBodyEl);
-    return el;
-  })();
+      el.classList.add('table');
+      el.appendChild(tHeadEl);
+      el.appendChild(tBodyEl);
+      return el;
+    }
+  )();
 
   function getTheadEl() {
     const el = document.createElement('thead');
@@ -369,19 +371,21 @@ function getInputTableEl(time) {
 }
 
 function getSolutionTreeEl(tree, model) {
-  return (() => {
-    const el = document.createElement('div');
-    const { maxAge } = model;
+  return (
+    () => {
+      const el = document.createElement('div');
+      const { maxAge } = model;
 
-    for (let y = maxAge; y > 0; y--) {
-      const rowEl = getRowEl();
+      for (let y = maxAge; y > 0; y--) {
+        const rowEl = getRowEl();
 
-      setRowEl(rowEl, y);
-      el.appendChild(rowEl);
+        setRowEl(rowEl, y);
+        el.appendChild(rowEl);
+      }
+      appendXAxisRowEl(el);
+      return el;
     }
-    appendXAxisRowEl(el);
-    return el;
-  })();
+  )();
 
   function getRowEl() {
     const el = document.createElement('div');
@@ -468,24 +472,28 @@ function getSolutionTreeEl(tree, model) {
         break;
       }
     }
-    return (index !== -1) ? decisionColumn[index] : null;
+    return (
+             index !== -1
+           ) ? decisionColumn[index] : null;
   }
 }
 
 function getSolutionStagesEl(stages) {
-  return (() => {
-    const appendTitle = (el, stageNumber) => el.appendChild(getStageTitleEl(stageNumber));
-    const appendTable = (el, stage) => el.appendChild(getTableEL(stage));
-    const el = document.createElement('div');
+  return (
+    () => {
+      const appendTitle = (el, stageNumber) => el.appendChild(getStageTitleEl(stageNumber));
+      const appendTable = (el, stage) => el.appendChild(getTableEL(stage));
+      const el = document.createElement('div');
 
-    for (let i = stages.length; i > 0; i--) {
-      const stage = stages[i - 1];
+      for (let i = stages.length; i > 0; i--) {
+        const stage = stages[i - 1];
 
-      appendTitle(el, i);
-      appendTable(el, stage);
+        appendTitle(el, i);
+        appendTable(el, stage);
+      }
+      return el;
     }
-    return el;
-  })();
+  )();
 
   function getStageTitleEl(stageNumber) {
     const el = document.createElement('p');
@@ -547,12 +555,14 @@ function getSolutionStagesEl(stages) {
 }
 
 function getResultChainsEl(stages, initialAge) {
-  return (() => {
-    const chains = [];
+  return (
+    () => {
+      const chains = [];
 
-    collectDecisionChains(chains, 0, initialAge);
-    return getChainsEl(chains);
-  })();
+      collectDecisionChains(chains, 0, initialAge);
+      return getChainsEl(chains);
+    }
+  )();
 
   function getChainsEl(chains) {
     const el = getChainsParentElement();
@@ -639,8 +649,18 @@ function getResultChainsEl(stages, initialAge) {
     const appendComposedChainRecursive = (parentEl, singleChainParentEl, chainItem) => {
       const newSingleChainEl = deepCopyOf(singleChainParentEl);
 
-      appendChainRecursive(parentEl, singleChainParentEl, Decision.KEEP, chainItem.k);
-      appendChainRecursive(parentEl, newSingleChainEl, Decision.REPLACE, chainItem.r);
+      appendChainRecursive(
+        parentEl,
+        singleChainParentEl,
+        Decision.KEEP,
+        chainItem.k
+      );
+      appendChainRecursive(
+        parentEl,
+        newSingleChainEl,
+        Decision.REPLACE,
+        chainItem.r
+      );
     };
 
     for (const chainItem of chains) {

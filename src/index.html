@@ -5,43 +5,45 @@
   ~
   ~ This file is part of Example Project: Machine Replacement Model.
   ~
-  ~ Machine Replacement Model is free software: you can redistribute it and/or
-  ~ modify it under the terms of the GNU General Public License as published by
-  ~ the Free Software Foundation, either version 3 of the License, or
-  ~ (at your option) any later version.
-  ~
-  ~ Machine Replacement Model is distributed in the hope that it will be useful,
-  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ~ GNU General Public License for more details.
-  ~
-  ~ You should have received a copy of the GNU General Public License along with
-  ~ Machine Replacement Model.  If not, see <https://www.gnu.org/licenses/>.
+  ~ This source code is licensed under the GNU General Public License v3.0 or
+  ~ later License found in the LICENSE file in the root directory of this source
+  ~ tree or at https://opensource.org/licenses/GPL-3.0.
   -->
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>EP: Machine Replacement Model</title>
-    <link rel="icon"
-          type="image/png"
-          href="https://raw.githubusercontent.com/tobiasbriones/ep-machine-replacement-model/static/ep-favicon.png"
-          sizes="96x96">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+SC&display=swap">
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
-          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
-          crossorigin="anonymous">
-    <link rel="stylesheet"
-          href="./css/styles.css">
-    <meta name="description"
-          content="Example project for solving Operations Research machine maintenance/replacement models.">
+    <meta charset="utf-8">
+    <meta
+      name="description"
+      content="Example project app for solving Operations Research's machine maintenance/replacement models."
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta charset="UTF-8">
+
+    <title>EP: Machine Replacement Model</title>
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://raw.githubusercontent.com/tobiasbriones/ep-machine-replacement-model/static/ep-favicon.png"
+      sizes="96x96"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Noto+Sans+SC&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="./css/styles.css"
+    />
   </head>
 
   <body>
-
     <header>
       <nav>
         <div>
@@ -50,8 +52,8 @@
       </nav>
       <div>
         <p>
-          This app's model is based upon the one defined on Operations Research: An Introduction
-          (7th Edition) Hamdy A. Taha.
+          This app's model is based upon the one defined on Operations Research:
+          An Introduction (7th Edition) Hamdy A. Taha.
         </p>
       </div>
     </header>
@@ -61,7 +63,8 @@
         <a
           rel="noopener noreferrer"
           target="_blank"
-          href="https://github.com/tobiasbriones/ep-machine-replacement-model/releases/download/v1.0.0/ejercicio.pdf">
+          href="https://github.com/tobiasbriones/ep-machine-replacement-model/releases/download/v1.0.0/ejercicio.pdf"
+        >
           Ver ejemplo (ejercicio.pdf)
         </a>
       </div>
@@ -69,50 +72,63 @@
         <div class="years-pane">
           <div class="form-group">
             <label for="yearsInput">Number of decision years</label>
-            <input id="yearsInput"
-                   class="form-control"
-                   value="0"
-                   type="number"
-                   placeholder="Enter the number of years">
+            <input
+              id="yearsInput"
+              class="form-control"
+              value="0"
+              type="number"
+              placeholder="Enter the number of years"
+            />
           </div>
         </div>
         <div class="max-time-pane">
           <div class="form-group">
             <label for="timeInput">Maximum machine age in years</label>
-            <input id="timeInput"
-                   class="form-control"
-                   value="0"
-                   type="number"
-                   placeholder="Enter the maximum age">
+            <input
+              id="timeInput"
+              class="form-control"
+              value="0"
+              type="number"
+              placeholder="Enter the maximum age"
+            />
           </div>
         </div>
         <div class="initial-age-pane">
           <div class="form-group">
             <label for="initialAgeInput">Initial machine age in years</label>
-            <input id="initialAgeInput"
-                   class="form-control"
-                   value="0"
-                   type="number"
-                   placeholder="Enter the initial machine age">
+            <input
+              id="initialAgeInput"
+              class="form-control"
+              value="0"
+              type="number"
+              placeholder="Enter the initial machine age"
+            />
           </div>
         </div>
         <div class="machine-price-pane">
           <div class="form-group">
-            <label for="machinePriceInput">New machine's price in dollars</label>
-            <input id="machinePriceInput"
-                   class="form-control"
-                   value="0"
-                   type="number"
-                   placeholder="Enter the price of a new machine">
+            <label for="machinePriceInput">
+              New machine's price in dollars
+            </label>
+            <input
+              id="machinePriceInput"
+              class="form-control"
+              value="0"
+              type="number"
+              placeholder="Enter the price of a new machine"
+            />
           </div>
         </div>
         <div>
           <button id="yearsSubmitButton" class="btn btn-primary">Next</button>
         </div>
       </div>
+
       <div id="inputTable"></div>
       <div class="solve-button-pane">
-        <button id="solveButton" class="btn btn-primary invisible">Solve</button>
+        <button id="solveButton" class="btn btn-primary invisible">
+          Solve
+        </button>
       </div>
       <div id="solutionPanel" class="gone">
         <div class="divider"></div>
@@ -145,11 +161,13 @@
         <span class="gh-link">
           <img
             src="https://raw.githubusercontent.com/TobiasBriones/images-nl/main/social/github/GitHub-Mark-Light-32px.png"
-            alt="GitHub Mark">
+            alt="GitHub Mark"
+          />
           <a
             rel="noopener noreferrer"
             target="_blank"
-            href="https://github.com/TobiasBriones/example.math.or.model.web.machine-replacement">
+            href="https://github.com/TobiasBriones/example.math.or.model.web.machine-replacement"
+          >
             GitHub
           </a>
         </span>
@@ -159,9 +177,11 @@
     <script nomodule>
       document.body.innerText = 'Browser not supported. Update your browser.';
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
-            crossorigin="anonymous">
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+      crossorigin="anonymous"
+    >
     </script>
     <script src="./js/main.mjs" type="module"></script>
 

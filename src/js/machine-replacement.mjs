@@ -5,18 +5,9 @@
  *
  * This file is part of Example Project: Machine Replacement Model.
  *
- * Machine Replacement Model is free software: you can redistribute it and/or
- * modify it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Machine Replacement Model is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License along with
- * Machine Replacement Model.  If not, see <https://www.gnu.org/licenses/>.
+ * This source code is licensed under the GNU General Public License v3.0 or
+ * later License found in the LICENSE file in the root directory of this source
+ * tree or at https://opensource.org/licenses/GPL-3.0.
  */
 
 export const INITIAL_DECISION_YEAR = 1;
@@ -109,10 +100,16 @@ export class MachineReplacementSolver {
   }
 
   #createDecisionTree() {
-    const initialNode = new TreeNode(this.#model.initialAge, INITIAL_DECISION_YEAR);
+    const initialNode = new TreeNode(
+      this.#model.initialAge,
+      INITIAL_DECISION_YEAR
+    );
     const sortDecisionYearByAge = solutionsTree => {
       solutionsTree.forEach(element => element.sort(
-        (a, b) => (a.machineAge > b.machineAge) ? 1 : -1)
+          (a, b) => (
+                      a.machineAge > b.machineAge
+                    ) ? 1 : -1
+        )
       );
     };
 
@@ -268,11 +265,11 @@ function validateModel(model) {
     if (initialAge > maxAge) {
       const msg = `
       Initial age must be less than or equals to Max age: 
-      Initial age ${initialAge}, Max age ${maxAge}
+      Initial age ${ initialAge }, Max age ${ maxAge }
       `;
       throw new Error(msg);
     }
-  }
+  };
 
   validateNonNegative(decisionYears, 'decisionYears');
   validateNonNegative(initialAge, 'initialAge');
