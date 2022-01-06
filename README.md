@@ -9,7 +9,8 @@
 Example project app for solving Operations Research's machine
 maintenance/replacement models.
 
-This app was a sample created in pure JS and Bootstrap.
+This app was a sample made in pure JS, CSS and Bootstrap with the DOM APIs for 
+rendering the `HTMLElement` components.
 
 ## Getting Started
 
