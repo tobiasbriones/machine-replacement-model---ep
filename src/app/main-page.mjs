@@ -19,6 +19,7 @@ import {
 import { clear, deepCopyOf, getSpanEl } from './tools/gui-utils.mjs';
 
 const yearsNextButtonId = 'yearsSubmitButton';
+const resetButtonId = 'resetButton';
 const solveButtonId = 'solveButton';
 const yearsInputId = 'yearsInput';
 const timeInputId = 'timeInput';
@@ -37,6 +38,7 @@ export class MainPage {
   #solutionsTreeView;
   #stagesView;
   #chainResultView;
+  #useSampleModelData;
 
   constructor() {
     this.#solver = new MachineReplacementSolver();
@@ -46,6 +48,7 @@ export class MainPage {
     this.#solutionsTreeView = null;
     this.#stagesView = null;
     this.#chainResultView = null;
+    this.#useSampleModelData = true;
   }
 
   get decisionYears() {
@@ -81,6 +84,8 @@ export class MainPage {
   #bindEvents() {
     this.#on(yearsNextButtonId, 'click')
         .call(this.#onYearsNextButtonClick);
+    this.#on(resetButtonId, 'click')
+        .call(this.#onResetButtonClick);
     this.#on(solveButtonId, 'click')
         .call(this.#onSolve);
   }
@@ -112,6 +117,12 @@ export class MainPage {
     if (validate()) {
       this.#setFromYearsToTabularData();
     }
+  }
+
+  #onResetButtonClick() {
+    document.querySelectorAll('input[type=number]')
+            .forEach(el => (el.value = 0));
+    this.#useSampleModelData = false;
   }
 
   #onSolve() {
@@ -212,7 +223,13 @@ export class MainPage {
     const solveButton = this.#getViewById(solveButtonId);
 
     this.#setInputTableEl(this.decisionYears, this.time);
-    this.#setSampleModelData();
+    if (this.#useSampleModelData) {
+      this.#setSampleModelData();
+    }
+    else {
+      this.#setEmptyModelData();
+    }
+
     solveButton.classList.remove('invisible');
   }
 
@@ -250,6 +267,11 @@ export class MainPage {
     this.#getViewById(timeInputId).value = this.#sampleModel.maxAge;
     this.#getViewById(initialAgeInputId).value = this.#sampleModel.initialAge;
     this.#getViewById(machinePriceInputId).value = this.#sampleModel.price;
+  }
+
+  #setEmptyModelData() {
+    document.querySelectorAll('#inputTable input[type=number]')
+            .forEach(el => (el.value = 0));
   }
 
   #setSampleModelData() {
@@ -491,12 +513,14 @@ function getSolutionTreeEl(tree, model) {
 }
 
 /**
- * Returns and computes the rendered element containing the problem development.
+ * Returns and computes the rendered element containing the problem
+ * development.
  *
  * It uses the DOM APIs to build the element.
  *
  * @param stages problem solution stages
- * @returns {HTMLDivElement} the rendered element containing the problem development
+ * @returns {HTMLDivElement} the rendered element containing the problem
+ *   development
  */
 function getSolutionStagesEl(stages) {
   return (

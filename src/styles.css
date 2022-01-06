@@ -142,6 +142,10 @@ footer a:hover {
   margin-bottom: 32px;
 }
 
+#resetButton {
+  margin-bottom: 32px;
+}
+
 #inputTable {
   overflow: auto;
 }
