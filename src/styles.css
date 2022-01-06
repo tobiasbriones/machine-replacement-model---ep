@@ -271,6 +271,12 @@ div.chain > div {
   display: inline-block;
 }
 
+#repsymo img {
+  display: inline-block;
+  width: 48px;
+  height: 48px;
+}
+
 @media only screen and (min-width: 400px) {
   header {
     height: 200px;
