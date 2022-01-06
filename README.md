@@ -64,7 +64,7 @@ problems.
 
 ## Screenshots
 
-![Screenshot 1](https://github.com/tobiasbriones/ep-machine-replacement-model/releases/download/v1.0.0/screenshot-1.png)
+![Screenshot 1](https://github.com/tobiasbriones/ep-machine-replacement-model/releases/download/v1.1.0/screenshot-1.png)
 
 ## Contact
 
